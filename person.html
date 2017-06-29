@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>分页信息页面</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/person.css">
+    <script src="js/person.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+    <title>个人信息修改页面</title>
+</head>
+<script>
+    window.onload= getInfo;
+</script>
+
+<style>
+   #infoshow .show{
+        padding-left:10px; border-right:none;
+    }
+   .cellPhonediv{  display: none;  }
+</style>
+<body>
+
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#home" data-toggle="tab">
+            个人信息
+        </a>
+    </li>
+    <li><a href="#pwdpage" data-toggle="tab">密码修改</a></li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="home">
+        <div align="center" id="hotelUserEditDiv">
+            <div align="center" id="contentDiv" style="width:100%">
+                <table cellspacing="0px" id="infoshow">
+                    <tr align="center" id="topDiv" style="font-size:30px; ">
+                        <td colspan="5">个&nbsp;人&nbsp;用&nbsp;户&nbsp;信&nbsp;息&nbsp;修&nbsp;改</td>
+                        <td>
+                            点击上传照片
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="title"><b>登录名</b></td>
+                        <td style="padding-left:10px; border-right:none">
+                            <span id="userName" name="userName"></span>
+                        </td>
+                        <td style="width:15%; border-left:none"></td>
+
+                        <td class="title"><b>姓名</b></td>
+                        <td style="padding-left:10px; border-right:none">
+                            <span id="Name" name="Name"></span>
+                        </td>
+                        <td style="width:15%; border-left:none"></td>
+                        <!-- <td style="width:15%; border-left:none">
+                             <div id="userNameDiv" style="display:none; color:red; font-size: 12px">请填写姓名！</div>
+                         </td>-->
+                    </tr>
+
+                    <tr>
+                        <td class="title"><b>工号</b></td>
+                        <td style="padding-left:10px; border-right:none">
+                            <span id="job_number" name="job_number"></span>
+                        </td>
+                        <td style="width:15%; border-left:none"></td>
+
+                        <td class="title"><b>管理权限</b></td>
+                        <td style="padding-left:10px; border-right:none">
+                            <span id="job" name="job"></span>
+                        </td>
+                        <td style="width:15%; border-left:none"></td>
+                        <!--  <td style="border-left:none">
+                              <div id="cardNoDiv1" style="display:none; color:red; font-size: 12px">请填写身份证号！</div>
+                              <div id="cardNoDiv2" style="display:none; color:red; font-size: 12px">身份证号已存在！</div>
+                              <div id="cardNoDiv3" style="display:none; color:red; font-size: 12px">身份证号格式不正确！</div>
+                          </td>-->
+                    </tr>
+                    <tr>
+                        <td class="title"><b>所在区域</b></td>
+                        <td style="padding-left:10px; border-right:none">
+                            <span id="polygon" name="polygon"> </span>
+                        </td>
+                        <td style="width:15%; border-left:none"></td>
+
+                        <td class="title"><b>身份证号</b></td>
+                        <td style="padding-left:10px; border-right:none">
+                            <span id="ID" name="ID"></span>
+                        </td>
+                        <td style="width:15%; border-left:none"></td>
+                        <!--  <td style="border-left:none">
+                              <div id="cardNoDiv1" style="display:none; color:red; font-size: 12px">请填写身份证号！</div>
+                              <div id="cardNoDiv2" style="display:none; color:red; font-size: 12px">身份证号已存在！</div>
+                              <div id="cardNoDiv3" style="display:none; color:red; font-size: 12px">身份证号格式不正确！</div>
+                          </td>-->
+                    </tr>
+                    <tr style="height:117px">
+                        <td class="title"><b>手机号码</b></td>
+                        <td style="padding-left:10px; border-right:none">
+
+                            <div id="cellPhonediv"  style= "display:none;" >
+                                <input type="text" style="width:200px; height:35px" class="text" id="tel"
+                                       name="tel" onBlur="checkCellPhone()"/>
+                            </div>
+
+                            <div id="cellPhonespandiv">
+                                 <span id="cellPhonespan" name="cellPhonespan" ></span>
+                            </div>
+                        </td>
+                        <td style="border-left:none">
+                            <div id="cellPhoneDiv1" style="display:none; color:red; font-size: 12px">请填写手机号码！</div>
+                            <div id="cellPhoneDiv2" style="display:none; color:red; font-size: 12px">手机号码格式不正确！</div>
+                        </td>
+
+                        <td class="title" ><b>邮箱</b></td>
+                        <td style="padding-left:10px; border-right:none">
+                          <div id="emaildiv" style= "display:none;" >
+                            <input type="text" style="width:200px; height:35px" class="text" id="email" name="email" onBlur="checkEmail()">
+                          </div>
+
+                            <div id="emailspandiv">
+                                <span id="emailspan" name="emailspan" ></span>
+                            </div>
+
+                        </td>
+                        <td style="border-left:none">
+                            <div id="emailDiv1" style="display:none; color:red; font-size: 12px">请填写邮箱！</div>
+                            <div id="emailDiv2" style="display:none; color:red; font-size: 12px">邮箱格式不正确！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="info_btn" >
+                            <input  id="change_btn" class="btn btn-primary btn-lg" type="button" value="修改" onclick="userchange()">
+                        </td>
+                        <td colspan="2" class="info_btn" >
+                            <input  id="rest_btn" class="btn btn-primary btn-lg" type="button" value="重填" onclick="userreset()">
+                        </td>
+                        <td colspan="2" class="info_btn">
+                            <input  id="sub_btn" class="btn btn-primary btn-lg" type="button" value="确认"  onclick="usersubmit()" id="submit">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tab-pane fade" id="pwdpage">
+        <div align="center" id="pwdUserEditDiv">
+           <!-- <div align="center" id="pwdtopDiv"
+                 style="height:110px; width:100%; font-size:21px; padding-top:30px">用&nbsp;户&nbsp;密&nbsp;码&nbsp;修&nbsp;改</div>-->
+            <div align="center" id="pwdcontentDiv" style="width:100%">
+                <table cellspacing="0px" style="width:50%; height:60%; border-collapse:collapse">
+                    <tr align="center" id="pwdtopDiv"
+                        style="height:110px; width:100%; font-size:30px; padding-top:30px">
+                        <td colspan="5">用&nbsp;户&nbsp;密&nbsp;码&nbsp;修&nbsp;改</td>
+                    </tr>
+                    <tr>
+                        <td style="width:30%; text-align:center;"><b>原密码</b></td>
+                        <td style="padding-left:20px; border-right:none">
+                            <input type="hidden" id="pwdloginName" name="loginName" />
+                            <input type="password" style="width:242px; height:35px" class="text" id="oldPwd" name="oldPwd" onBlur="checkOldPwd()"/>
+                        </td>
+                        <td style="width:15%; border-left:none">
+                            <div id="oldPwdDiv1" style="display:none; color:red; font-size: 12px">请输入原密码！</div>
+                            <div id="oldPwdDiv2" style="display:none; color:red; font-size: 12px">原密码输入有误！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:15%; text-align:center;"><b>新密码</b></td>
+                        <td style="padding-left:20px; border-right:none">
+                            <input type="password" style="width:242px; height:35px" class="text" id="password" name="password" onBlur="checknewPassword()">
+                        </td>
+                        <td style="border-left:none">
+                            <div id="passwordDiv1" style="display:none; color:red; font-size: 12px">请输入新密码！</div>
+                            <div id="passwordDiv2" style="display:none; color:red; font-size: 12px">新密码不能和原密码相同！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:15%; text-align:center;"><b>确认密码</b></td>
+                        <td style="padding-left:20px; border-right:none">
+                            <input type="password" style="width:242px; height:35px" class="text" id="pwd" name="pwd" onBlur="checkconfimPwd()">
+                        </td>
+                        <td style="border-left:none">
+                            <div id="pwdDiv1" style="display:none; color:red; font-size: 12px">请输入确认密码！</div>
+                            <div id="pwdDiv2" style="display:none; color:red; font-size: 12px">两次密码输入不一致！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align:center;">
+                            <input type=button class="btn btn-primary btn-lg" value="重填" onclick="pwdreset()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type=button class="btn btn-primary btn-lg" value="确认" onclick="pwdsubmit()" id="pwdsubmit" >
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

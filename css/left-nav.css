@@ -1,0 +1,61 @@
+html,body{font-family: Helvetica, Arial, sans-serif;min-height:100vh;}
+.container-fluid{min-width: 990px;background-color:#9d9d9d;height: 100%}
+a{color: #d5d5d9;text-decoration: none;}
+
+#top-bar{min-width: 960px; background-image: url("../images/index_bg.jpg");  height:7vh;  color: #d5d5d9}
+#system-logo .logo{width: 55px;height: 55px;margin-right: 0;padding-right: 0;}
+#system-logo{font-size: 28px; float: left;margin-top: 5px;}
+#system-logo span{
+    color: #2ec0cc;font-size: 25px;
+    vertical-align: middle;
+    padding-top: 4px;
+    font-weight: 400;
+    padding-left: 0;
+    margin-left: 0;
+}
+.bar{float: right;}
+.bar a{margin-left: 3px;}
+.bar a:hover{color: #23707e;text-decoration: none;}
+.welcome,.exit,.setting{float: left; margin-right:8px;margin-top: 35px;}
+
+#left-pane{height: 93vh;background-color: #e7e7eb;}
+/*#menu-list{background-image: url(../images/index_bg.jpg);height:100%;padding: 0;}*/
+#menu-list{background-image: url(../images/index_bg.jpg);height:100%;padding: 0;}
+
+.menu_head{
+    margin-bottom: 0;
+    font-size:16px;
+    color: #d5d5d9;
+    cursor:pointer;
+    position:relative;
+    padding:14px 15px;
+    border-bottom: 1px solid #18525c;
+    border-top:1px solid #217682;
+    text-align: center;
+    background:url(../images/right.png) right no-repeat;
+    background-size:19px 19px;
+    background-position: 90% 46%;
+}
+.home{border-top:4px solid #27a1ad;}
+
+.menu_body{
+    display: none;
+    /*width:223px;*/
+    height:auto;
+    overflow:hidden;
+    line-height:38px;
+}
+
+.menu_body a{
+    display:block;
+    color: #d5d5d9;
+    text-align: center;
+    text-decoration:none;
+    font-size: 14px;
+}
+
+.menu_body a:hover{text-decoration:none;background-color: #218c96;color: white}
+.current{color: #ffffff; background:url(../images/down.png) right no-repeat; background-size:19px 19px;display: block;background-position: 90% 46%;}
+.current_body{background-color:rgba(39,161,173,0.3);border-top: none;}
+
+iframe{margin:0;margin-top:10px;width:100%;height:100%;padding-left: 0;}

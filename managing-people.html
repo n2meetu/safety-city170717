@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人员管理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="css/managing-people.css">
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/managing-people.js"></script>
+
+    <script>
+        //逐行动态添加人员信息
+        function getData(data){
+            var res=data;
+            var len=res.length;
+
+            for(var i=0;i<len;i++){
+                var a=res[i].number;   //工号
+                var b=res[i].name;     //姓名
+                var c=res[i].id_card;  //身份证
+                var d=res[i].phone;    //电话
+                var e=res[i].email;    //邮件
+                var f=res[i].user_type;//用户类型
+                var g=res[i].area;     //负责区域
+                $(".people tbody").append (
+                    '<tr id="tr_'+i+'">'+
+//                    第一列：checkbox
+                        '<td><label class="checkbox"><input type="checkbox"></label></td>'+
+                        '<td>'+a+'</td>' +
+                        '<td>'+b+'</td>' +
+                        '<td>'+c+'</td>' +
+                        '<td>'+d+'</td>' +
+                        '<td>'+e+'</td>' +
+                        '<td>'+f+'</td>' +
+                        '<td>'+g+'</td>' +
+    //                      最后一列："查看"、"修改"
+                        '<td>' +
+                            '<input type="button" class="scan btn btn-info" data-toggle="modal" data-target="#change-info" value="查看" onclick="check(i)">' +
+                            '<input type="button" class="modify btn btn-success" data-toggle="modal" data-target="#change-info" value="修改" onclick="modify(i)">' +
+                        '</td>'+
+                    '</tr>');
+            }
+        }
+
+        //页面加载时读入数据
+        window.onload=function getInfo() {
+            var number="dsa0001425";//转jsp后修改
+            $.ajax=({
+                type:"post",
+                url:"http://10.1.17.28:8090/safecity/personInformation",
+                data:{
+                    number:number,
+                    action:1
+                },
+                dataType:"json",
+                success:getData(data)
+            });
+        };
+
+        //将搜索内容传递给后台
+        function find() {
+            var area=$("#areaSel option:selected").val();
+//            alert(area);
+            var number=$("#people-number").val();
+//            alert(number);
+
+            if(area==""&&number==""){            //1' 两个都没选
+                alert("请选择区域或者填写工号！");
+                return false;
+            }else if(area!=""&&number==""){      //2' 只选了区域
+                $.ajax({
+                    type:"post",
+                    url:"http://10.1.17.28:8090/safecity/personInformation",
+                    data: {
+                        area:area,
+                        acton:1
+                    },
+                    dataType: "json",
+                    success:getData()
+                    })
+            }else if(area==""&&number!="") {    // 3' 只写了工号
+                $.ajax({
+                    type: "post",
+                    url: "http://10.1.17.28:8090/safecity/personInformation",
+                    data: {
+                        number: number,
+                        acton: 1
+                    },
+                    dataType: "json",
+                    success: getData()
+                })
+            }else{                            // 4' 既选择了区域，也填写了工号
+                $.ajax({
+                    type: "post",
+                    url: "http://10.1.17.28:8090/safecity/personInformation",
+                    data: {
+                        number: number,      // 传两个值给后台（工号+区域）
+                        area:area,
+                        acton: 1
+                    },
+                    dataType: "json",
+                    success: getData()
+                })
+            }
+        }
+
+        //点击"查看"按钮
+        function check(i) {
+            var item=$(".item");
+            var sel=$(".sel");
+
+            var data=
+
+            //1'读入数据
+            var number="dsa0001425";//转jsp后修改
+            $.ajax=({
+                type:"post",
+                url:"http://10.1.17.28:8090/safecity/personInformation",
+                data:{
+                    number:number,
+                    action:1
+                },
+                dataType:"json",
+                success:getData(data)
+            });
+//            2'不可修改
+            sel.attr("readonly","readonly");
+            item.attr("readonly","readonly");
+        }
+
+        //点击"修改"按钮
+        function modify() {
+            //1'读入数据
+//            var number="dsa0001425";//转jsp后修改
+            $.ajax=({
+                type:"post",
+                url:"http://10.1.17.28:8090/safecity/personInformation",
+                data:{
+                    number:number,
+                    action:1
+                },
+                dataType:"json",
+                success:getData()
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <!--面包屑导航-->
+    <div class="navigation">
+        <ol class="breadcrumb">
+            <span class="fa fa-home home"></span>
+            <li>系统管理</li>
+            <li>管理员管理</li>
+        </ol>
+    </div>
+
+    <!--查找、新增人员-->
+    <div class="search row">
+        <!--区域-->
+        <div class="form-group col-sm-3 col-md-3 col-lg-3 area">
+            <!--<label class="control-label" for="areaSel">区域：</label>-->
+            <select id="areaSel" class="selectpicker show-tick" title="选择想要查询的区域" data-live-search="true" data-size="4">
+                <option>Mustard</option>
+                <option>Ketchup</option>
+                <option>Relish</option>
+                <option>Mustard</option>
+                <option>Ketchup</option>
+                <option>Relish</option>
+            </select>
+        </div>
+
+        <!--关键字-->
+        <div class="input-group col-sm-3 col-md-3 col-lg-3 keyword" style="margin-top:0; position:relative;">
+            <input type="text" class="form-control" id="people-number" placeholder="请输入工号">
+            <span class="input-group-btn">
+               <button class="btn btn-default btn-search find" onclick="find()">查找</button>
+               <button class="btn btn-default btn-search add" style="margin-left:3px">新增</button>
+            </span>
+        </div>
+    </div>
+
+    <!--具体人员信息-->
+    <div class="people-managing-form">
+        <div class="sel"></div>
+        <div class="people-table">
+            <table class="people table table-bordered table-striped">
+                <thead>
+                    <th><input type="checkbox" id="all" value="all"></th>
+                    <th>工号</th>
+                    <th>姓名</th>
+                    <th>身份证号</th>
+                    <th>电话</th>
+                    <th>邮箱</th>
+                    <th>用户类型</th>
+                    <th>负责区域</th>
+                    <th>操作</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label class="checkbox">
+                                <input type="checkbox">
+                            </label>
+                        </td>
+                        <td>162050188</td>
+                        <td>tony tang</td>
+                        <td>330720188473882910</td>
+                        <td>19928370284</td>
+                        <td>hightngimg@xx.com.cn</td>
+                        <td>管理员</td>
+                        <td>月雅湖</td>
+                        <td>
+                            <input type="button" class="scan btn btn-info" data-toggle="modal" data-target="#change-info" value="查看">
+                            <input type="button" class="modify btn btn-success" data-toggle="modal" data-target="#change-info" value="修改">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="checkbox"><input type="checkbox"></label></td>
+                        <td>162050188</td>
+                        <td>tony tang</td>
+                        <td>330720188473882910</td>
+                        <td>19928370284</td>
+                        <td>hightngimg@xx.com.cn</td>
+                        <td>管理员</td>
+                        <td>月雅湖</td>
+                        <td>
+                            <input type="button" class="scan btn btn-info" data-toggle="modal" data-target="#change-info" value="查看" onclick="check()">
+                            <input type="button" class="modify btn btn-success" data-toggle="modal" data-target="#change-info" value="修改" onclick="modify()">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--可修改的模态框-->
+    <div id="change-info" class="modal fade in" role="dialog" tabindex="-1" aria-labelledby="change-info" style="display:none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>用户详细信息</h3></div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <!--工号-->
+                        <div class="form-group">
+                            <label for="number" class="col-sm-2 control-label">工号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control item" id="number" placeholder="工号">
+                            </div>
+                        </div>
+                        <!--姓名-->
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control item" id="name" placeholder="姓名">
+                            </div>
+                        </div>
+                        <!--身份号-->
+                        <div class="form-group">
+                            <label for="id_card" class="col-sm-2 control-label">身份证号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control item" id="id_card" placeholder="身份证号">
+                            </div>
+                        </div>
+                        <!--电话-->
+                        <div class="form-group">
+                            <label for="phone" class="col-sm-2 control-label">电话</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control item" id="phone" placeholder="电话">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control item" id="email" placeholder="邮箱">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_type" class="col-sm-2 control-label">用户类型</label>
+                            <div class="col-sm-10">
+                                <select name="form-control" class="selectpicker sel" id="user_type">
+                                    <option value="manager">管理员</option>
+                                    <option value="normal">普通用户</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="area" class="col-sm-2 control-label">负责区域</label>
+                            <div class="col-sm-10 area-select">
+                                <select name="area" id="area" class="selectpicker show-tick sel" title="为用户选择分配区域" data-size="9">
+                                    <optgroup label="江干区" class="area">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </optgroup>
+                                    <optgroup label="上城区" class="area">
+                                        <option value="1">4</option>
+                                        <option value="2">5</option>
+                                        <option value="3">6</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">保存修改</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

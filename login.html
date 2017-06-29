@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="myjs/jquery-3.2.1.min.js"></script>
+    <script src="myjs/bootstrap.min.js"></script>
+    <script src="js/card.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/register.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script>
+
+    </script>
+    <style>
+        /*背景*/
+        .login-container{ background-image: url(images/index_bg.jpg);}
+    </style>
+    <title>登录</title>
+</head>
+<body>
+<div class="container-fluid login-container">
+    <div class="page-container1">
+        <div id="text1">
+            <img src="images/policy-icon.svg" alt="policy" width="140px" height="128px;">
+        </div>
+        <div id="text2">平安城市</div>
+        <div id="text3">视频监控综合管理系统</div>
+    </div>
+    <div class="page-container2" >
+        <form id="login_form" action="" method="post">
+            <label for="user_name"></label>
+            <input type="text" id="user_name" name="user_name" class="user_name" placeholder="Username">
+            <label for="user_password"></label>
+            <input type="password" id="user_password" name="user_password" class="user_password" placeholder="Password">
+
+            <input type="button" id="log_btn" class="btn btn-primary btn-lg" value="登录"  onclick="login()">
+            <input type="button" id="reg_btn" class="btn btn-primary btn-lg" value="注册" data-toggle="modal" data-target="#regModal">
+        </form>
+    </div>
+    <div class="checkbox">
+            <input id="chkRememberPass" name="chkRememberPass" type="checkbox" checked> Check me out
+    </div>
+    <div class="modal fade" id="regModal"  >
+        <div class="modal-dialog" style="width: 620px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="width:80px; height:30px; margin-top: 0px">
+                        &times;
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel">成&nbsp;员&nbsp;注&nbsp;册</h3>
+                </div>
+                <div class="modal-body" style="width:620px;height: 600px">
+                    <div id="registerDiv" >
+                        <form class="signupForm" id="signupForm" method="get" action="" style="width: 100%">
+                            <span class="submit_span">
+                                <label for="Username">用&nbsp户&nbsp名</label>
+                                <input id="Username" name="Username" type="text" onblur="checkusername()">
+                            </span>
+                            <span class="submit_span">
+                                <label for="Name">名&nbsp&nbsp&nbsp&nbsp字</label>
+                                <input id="Name" name="Name" type="text">
+                            </span>
+                            <span class="submit_span">
+                                <label for="ID">身&nbsp份&nbsp证</label>
+                                <input   id="ID" name="ID" type="text" onblur="checkID()" >
+                            </span>
+                            <span class="submit_span">
+                                <label for="Tel">电&nbsp&nbsp&nbsp&nbsp话</label>
+                                <input  id="Tel" name="Tel"  type="text"/>
+                            </span>
+                            <span class="submit_span">
+                                <label for="Email">电子邮箱</label>
+                                <input id="Email" name="Email" type="email">
+                            </span>
+                            <span class="submit_span">
+                                    <label for="PassWord">密&nbsp&nbsp&nbsp&nbsp码</label>
+                                    <input id="PassWord" name="PassWord" type="password">
+                            </span>
+                            <span class="submit_span">
+                                    <label for="ConfirmPassword">重复密码</label>
+                                    <input id="ConfirmPassword" name="ConfirmPassword" type="password">
+                            </span>
+                            <span id="regform_span" class="submit_span" style="width:360px">
+                                    <input  type="reset" id="reset_btn" class="btn btn-primary btn-lg" value="重置" style="width: 80px">
+                                    <input  type="submit" id="submit_btn" class="btn btn-primary btn-lg" value="提交" onclick="regformsub()" style="width: 80px">
+                            </span>
+                        </form>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

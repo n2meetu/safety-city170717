@@ -1,0 +1,28 @@
+body{
+    font-family: '微软雅黑', Simsun;
+}
+
+td {
+    border: solid 3px #D3D3D3;
+    height:55px;
+    width:60px;
+}
+label::after{
+    content: "";
+}
+.title{
+    width:15%; text-align:center;
+}
+#infoshow{
+    width:60%; height:450px; border-collapse:collapse;
+}
+#change_btn,#reset_btn,#sub_btn{
+    width:80px; height:40px; margin-right: 18px;
+}
+.info_btn{
+    text-align:right; padding-right:20px; border-right:none
+}
+.cellPhoneDiv1,.cellPhoneDiv2,.emailDiv1,.emailDiv2{
+
+
+}
