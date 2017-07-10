@@ -32,14 +32,16 @@ a:hover {COLOR: #0a382d; TEXT-DECORATION: underline}
 }
 #MutiNav .multiUl LI BLOCKQUOTE .ChildNavIn {
 	PADDING-RIGHT: 0px; PADDING-LEFT: 0px;
-	BACKGROUND: /*url(icon.png)*/ #51a09b no-repeat 37px -730px;
+	BACKGROUND: url(icon.png) #90bdd8 no-repeat 37px -730px;
 	PADDING-BOTTOM: 10px; OVERFLOW: hidden;
-	WIDTH: 120px; COLOR: #dee6e9; PADDING-TOP: 10px;
+	WIDTH: 120px; 
+	/*COLOR: #dee6e9; */
+	PADDING-TOP: 10px;
 	HEIGHT: auto; TEXT-ALIGN: center
 }
 #MutiNav .multiUl LI BLOCKQUOTE .ChildNavIn A {
 	/*PADDING-RIGHT: 4px;*/
-	font-size:16px;
+	font-size:14px;
 	DISPLAY: inline;
 	/*PADDING-LEFT: 4px;*/
 	FLOAT: left;
@@ -47,14 +49,15 @@ a:hover {COLOR: #0a382d; TEXT-DECORATION: underline}
 	MARGIN: 3px 0px 3px 0px;
 	WIDTH: 100%;
 	height:100%;
-	COLOR: #dee6e9;
+	
+	/*COLOR: #dee6e9;*/
 	LINE-HEIGHT:20px;
 	PADDING-TOP: 2px;
-	BORDER-BOTTOM: #255f51 1px dotted;
+	/*BORDER-BOTTOM: #255f51 1px dotted;*/
 	TEXT-ALIGN: center
 }
 #MutiNav .multiUl LI BLOCKQUOTE A:hover {
-	BACKGROUND: #2c705f; COLOR: #fefbc2! important
+	BACKGROUND: #7eb7d8; COLOR: #fefbc2! important
 }
 /*#MutiNav .multiUl #TopNavDept {
 	

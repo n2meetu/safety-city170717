@@ -8,19 +8,18 @@ body {
     width:80px; margin-right: 18px; margin-top: 50px;
 }
 
-.login-container{font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-    height: 560px;margin-top: 60px;}
+.login-container{font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;height: 100vh;}
 .page-container1 {
     margin: 120px auto 0 auto;
     width:460px;
-    font-color:#000;
+    color:#000;
 }
 #text1{float:left}
-#text2{font-size:60px;text-align: center}
-#text3{font-size:30px;text-align:center}
+#text2{font-size:49px;text-align:left;color:white;padding-top: 20px;font-family:'BigYoungBGB2bbad35a1619972';}
+#text3{font-size:16px;text-align:left;color:rgba(247, 247, 247, 0.86);font-family:'TSSunOldbbad4b92919972';text-indent: 14px;}
 .page-container2{
     margin: 60px auto 0 auto;
-    font-color:#000;
+    color:#000;
 }
 .page-container2 button{width:80px; margin-right: 18px; margin-top: 50px}
 #user_name{  margin-bottom: 10px;}
@@ -197,5 +196,4 @@ button:active {
 
 .connect a:hover { background-position: center bottom; }
 
-
-
+.checkbox,.radio{color: white;font-size: 9px;font-weight: 100;}

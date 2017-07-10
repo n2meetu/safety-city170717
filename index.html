@@ -1,55 +1,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>导航</title>
-<link href="css/default.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="css/bootstrap.min.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>导航</title>
+	<link href="css/default.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+	<script src="js/jquery-3.2.1.min.js"></script>
 	<script language="javascript" type="text/javascript" src="js/jquery.pack.js"></script>
-<style>
-	a{color: #d5d5d9;text-decoration: none;}
-	#top-bar{min-width: 960px; background-image: url("images/index_bg.jpg");  height:60px;  color: #d5d5d9}
-	#system-logo .logo{width: 55px;height: 100%;margin-right: 0;padding-right: 0;float:left}
-	#system-logo {height:100%;}
-	#system-logo span{  color: #2ec0cc;font-size:30px;}
-	.bar a{margin-left: 3px;}
-	.bar a:hover{color: #23707e;text-decoration: none;}
-	.exit,.setting{float: left; margin-right:8px;margin-top: 35px;}
-</style>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/index.css">
+	<!--引用外部字体-->
+	<link href='http://cdn.webfont.youziku.com/webfonts/nomal/104818/46724/595d9c87f629d80a88923feb.css' rel='stylesheet' type='text/css'/>
+
 </head>
 <body>
-		<div id="MutiNav">
-			<div class="row" id="top-bar">
-			<div id="nav-left" style="width:15%;height:100%;float:left">
+	<div id="MutiNav">
+		<div class="row" id="top-bar">
+			<div id="nav-left">
 				<div id="system-logo">
-
 					<img src="images/city-safety.svg" alt="logo" class="logo">
-					<div style="float:left;height:100%;text-align:center">
-						<img src="images/safety.svg" alt="logo" class="logo-name" style="width:70px;margin-top:15px">
+					<div class="slogo">
+						<img src="images/safety.svg" alt="logo" class="logo-name">
 						<span>城市</span>
 					</div>
-
 				</div>
 			</div>
 
-			<div  id="nav-center" style="width:70%;float:left;height:100%;" >
-				<div style="width:85%;float:right;margin-top:25px;">
+			<div id="nav-center">
+				<div class="navCen" >
 					<ul class="multiUl">
-
 						<li class="fa fa-shield"><a class="go" href="##" title="">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 
-						<li class="s">/</li>
-						<li class="fa fa-caret-square-o-left"><a class="go"  href="##" title="监控">监&nbsp;控&nbsp;信&nbsp;息</a>
+						<li class="s">/&nbsp;&nbsp;</li>
+						<li class="fa fa-caret-square-o-left"><a class="go" href="##" title="监控">监&nbsp;控&nbsp;信&nbsp;息</a>
 							<blockquote>
 								<div class="ChildNavIn">
 									<a class="First " href="##">实时监控</a>
 									<a class="" href="##">历史监控</a>
-
-								</div></blockquote>
+								</div>
+							</blockquote>
 						</li>
 
-						<li class="s">/</li>
+						<li class="s">/&nbsp;&nbsp;</li>
 						<li class="fa fa-assistive-listening-systems"><a class="go" href="##" title="">警&nbsp;务&nbsp;信&nbsp;息</a>
 							<blockquote>
 								<div class="ChildNavIn">
@@ -61,7 +55,7 @@
 							</blockquote>
 						</li>
 
-						<li class="s">/</li>
+						<li class="s">/&nbsp;&nbsp;</li>
 						<li class="fa fa-car"><a class="go" href="##" title="车流预警">车&nbsp;流&nbsp;预&nbsp;警</a>
 							<blockquote>
 								<div class="ChildNavIn">
@@ -71,8 +65,8 @@
 							</blockquote>
 						</li>
 
-						<li class="s">/</li>
-						<li  class="fa fa-venus-double" ><a class="go" href="##" title="人流预警">人&nbsp;流&nbsp;预&nbsp;警</a>
+						<li class="s">/&nbsp;&nbsp;</li>
+						<li class="fa fa-venus-double"><a class="go" href="##" title="人流预警">人&nbsp;流&nbsp;预&nbsp;警</a>
 							<blockquote>
 								<div class="ChildNavIn">
 									<a class="First " href="##">人流预警</a>
@@ -81,7 +75,7 @@
 							</blockquote>
 						</li>
 
-						<li class="s">/</li>
+						<li class="s">/&nbsp;&nbsp;</li>
 						<li class="fa fa-universal-access"><a class="go" href="##" title="舆情">舆&nbsp;情&nbsp;信&nbsp;息</a>
 							<blockquote>
 								<div class="ChildNavIn">
@@ -91,7 +85,7 @@
 							</blockquote>
 						</li>
 
-						<li class="s">/</li>
+						<li class="s">/&nbsp;&nbsp;</li>
 						<li class="fa fa-connectdevelop"><a class="go" href="##" title="网格化管理">网格化管理</a>
 							<blockquote>
 								<div class="ChildNavIn">
@@ -103,7 +97,7 @@
 						</li>
 
 
-						<li class="s">/</li>
+						<li class="s">/&nbsp;&nbsp;</li>
 						<li class="fa fa-users"><a class="go" href="##" title="系统管理">系&nbsp;统&nbsp;管&nbsp;理</a>
 							<blockquote>
 								<div class="ChildNavIn">
@@ -120,34 +114,40 @@
 
 			</div>
 
-			<div class="bar" style="float:right;width:15%;height: 100%">
-				<div id="bar-left" style="float:right;width:60%;height: 100%">
-					<!--<span class="fa fa-user-circle welcome"><a href="#">admin</a>, 欢迎使用!&nbsp;&nbsp;&nbsp;/</span>-->
+			<div class="bar">
+				<div class="userWel"><a>妈咪妈咪哄</a>用户</div>
+				<div id="bar-left">
 					<!--退出-->
-					<span class="fa fa-sign-out exit"><a href="#">退出</a>&nbsp;&nbsp;&nbsp;/</span>
+					<button type="button" class="btn btn-default btn-xs exit">退出</button>
 					<!--设置-->
-					<span class="fa fa-gear setting"><a href="#">设置</a></span>
+					<button type="button" class="btn btn-default btn-xs setting">设置</button>
 				</div>
 			</div>
 			</div>
-	 <script type="text/javascript">
-	
-			var mst;
-			jQuery(".multiUl li").hover(function(){
+
+     </div>
+	<div id="right_iFrame">
+		<iframe name="right_iFrame" src="v6-current_vio.html" frameborder=0 scrolling="no" style="margin-left:0;float:right;width:100%;height:100vh"></iframe>
+	</div>
+	</body>
+<!-- 导航 -->
+	<script type="text/javascript">
+		var mst;
+		jQuery(".multiUl li").hover(function () {
 			var curItem = jQuery(this);
-			mst = setTimeout(function(){//延时触发
+			mst = setTimeout(function () { //延时触发
 				curItem.find("blockquote").slideDown('fast');
 				mst = null;
 			});
-			}, function(){
-			if(mst!=null)clearTimeout(mst);
+		}, function () {
+			if (mst != null) clearTimeout(mst);
 			jQuery(this).find("blockquote").slideUp('fast');
-			});
-	 </script>
-     </div>
-		<div id="right_iFrame">
-			<iframe name="right_iFrame" src="20170628current_vio.html" frameborder=0 scrolling="no"
-					style="margin-left:0;float:right;width:100%;height:820px"></iframe>
-		</div>
-</body>
+		});
+	</script>
+	<!--<script>
+		function changeColor() {
+			$(this).find("a").css("color", "417898");
+			$("this icon").css("color", "417898");
+		};
+	</script>-->
 </html>

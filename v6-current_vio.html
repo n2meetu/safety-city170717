@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>区域管理-测试中</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="js/current_vio.js"></script>
+    <script src="js/drawRegion.js"></script>
+    <script src="js/drawStation.js"></script>
+    <!--baiduMAP-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3rm9RTu5fYIX6AAdZCtrw675cCYnc4lA"></script>
+    <!--加载鼠标绘制工具-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <!--加载检索信息窗口-->
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+    <link rel="stylesheet" href="css/current_vio.css">
+
+</head>
+
+<body>
+    <div style="width:17%;height:1000px;font-size:18px;background-color:#b9ddf3;float:left">
+        <div id="myTabContent" class="tab-content">
+                <div class="panel-group" id="accordion" style="text-align: center">
+                    <div class="panel panel-default" id="poylgon" style="border:none;">
+                        <div class="panel-heading" style="background-color:#86d1ff;border:none;color:white">
+                            <h4 class="panel-title">
+                                <a class="##">区域管理</a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseOne" class="myarea" id="jiangganqu" onclick="get_Polgon(this.id)">江干区</a>
+                                <i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="addpol"
+                                   onclick="addtip(this.id)"></i>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body" id="body">
+                                <div class="panel-group" class="polaccordion" id="polaccordion">
+                                 <!--派出所级别-->
+                                         <!-- <div class="panel panel-default"  style="width:100%;text-align:center">
+                                                <div class="panel-heading" id="polheading">
+                                                    <h4 class="panel-title">
+                                                        <table style="width:100%;text-align:center">
+                                                            <tr>
+                                                                <th>
+                                                                    <a  id="polname" data-toggle="collapse" data-parent="#polaccordion"
+                                                                        href="#collapseplo1" >下沙派出所 </a>
+                                                                    <i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="addcom" onclick=addtip(this.id)></i>
+                                                                </th>
+                                                                <td>
+                                                                    <a href="#"><i class="fa fa-lg fa-check-square-o "
+                                                                                   data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="#"><i class="fa fa-lg fa-pencil-square-o"
+                                                                                   data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="#"><i class="fa fa-lg fa-times-rectangle-o" onclick="delete_pol();"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </h4>
+                                                </div>-->
+                                         <!-- <div id="collapseplo" class="panel-collapse collapse" style="width:100%">
+                                                    <div class="panel-body" id="xiashabody">
+                                                        <table style="width:100%">
+                                                            <tr>
+                                                                <td><a href="#" onclick="getmap()"> 社区名称 </a></td>
+                                                                <td>
+                                                                    <a href="#"><i class="fa fa-lg fa-check-square-o"
+                                                                                   data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="view_com_info()"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="#"><i class="fa fa-lg fa-pencil-square-o"
+                                                                                   data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="change_com_info()"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="#"><i class="fa fa-lg fa-times-rectangle-o" onclick="deletecom()"></i></a></a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>-->
+                                         <!--</div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseTwo" class="myarea" id="gongshuqu" onclick="get_gsPolgon(this.id)">拱墅区</a>
+                                <i type="button" class="fa fa-1x fa-plus-square-o" class="gongshuaddbtn" id="gongshuquaddpol"
+                                   onclick="addtip(this.id)"></i>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body" id="gongshuqubody">
+                                <div class="panel-group" id="gongshuqupolaccordion">
+                                 <!-- 派出所级别-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseThree" class="myarea" id="xihuqu" onclick="getPolgon(this.id)">西湖区</a>
+                                <i type="button" class="fa fa-1x fa-plus-square-o" class="xihuaddbtn" id="xihuquaddpol"
+                                   onclick="addtip(this.id)"></i>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body" id="xihuqubody">
+                                <div class="panel-group" id="xihuqupolaccordion">
+                                    <!-- 派出所级别-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseFour" class="myarea" id="shangchengqu" onclick="getPolgon(this.id)">上城区</a>
+                                <i type="button" class="fa fa-1x fa-plus-square-o" class="shangchengquaddbtn" id="shangchengquaddpol"
+                                   onclick="addtip(this.id)"></i>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse">
+                            <div class="panel-body" id="shangchengqubody">
+                                <div class="panel-group" id="shangchengqupolaccordion">
+                                    <!-- 派出所级别-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseFive" class="myarea" id="xiachengqu" onclick="getPolgon(this.id)">下城区</a>
+                                <i type="button" class="fa fa-1x fa-plus-square-o" class="xiachengquaddbtn" id="xiachengquaddpol"
+                                   onclick="addtip(this.id)"></i>
+                            </h4>
+                        </div>
+                        <div id="collapseFive" class="panel-collapse collapse">
+                            <div class="panel-body" id="xiachengqubody">
+                                <div class="panel-group" id="xiachengqupolaccordion">
+                                    <!-- 派出所级别-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseThree" class="myarea" id="yuhangqu" onclick="getPolgon(this.id)">余杭区</a>
+                                <i type="button" class="fa fa-1x fa-plus-square-o" class="yuhangquaddbtn" id="yuhangquaddpol"
+                                   onclick="addtip(this.id)"></i>
+                            </h4>
+                        </div>
+                        <div id="collapsesix" class="panel-collapse collapse">
+                            <div class="panel-body" id="yuhangqubody">
+                                <div class="panel-group" id="yuhangqupolaccordion">
+                                    <!-- 派出所级别-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseSeven" class="myarea" id="binjiangqu" onclick="getPolgon(this.id)">滨江区</a>
+                                <i type="button" class="fa fa-1x fa-plus-square-o" class="shangchengquaddbtn" id="binjiangquaddpol"
+                                   onclick="addtip(this.id)"></i>
+                            </h4>
+                        </div>
+                        <div id="collapseSeven" class="panel-collapse collapse">
+                            <div class="panel-body" id="binjiangqubody">
+                                <div class="panel-group" id="binjiangqupolaccordion">
+                                    <!-- 派出所级别-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseEight" class="myarea" id="xiaoshanqu" onclick="getPolgon(this.id)">萧山区</a>
+                                <i type="button" class="fa fa-1x fa-plus-square-o" class="xiachengquaddbtn" id="xiaoshanquaddpol"
+                                   onclick="addtip(this.id)"></i>
+                            </h4>
+                        </div>
+                        <div id="collapseEight" class="panel-collapse collapse">
+                            <div class="panel-body" id="xiaoshanqubody">
+                                <div class="panel-group" id="xiaoshanupolaccordion">
+                                    <!-- 派出所级别-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--显示各个点的经、纬度-->
+                    <div class="resultShape">
+                        <span id="resultspan"></span>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div id="allmap" style="overflow:hidden;zoom:1;position:relative;">
+        <div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out;">
+        </div>
+    </div>
+
+    <!-- 提示框，询问是否保存所选区域-->
+    <div class="ibox">
+            <div class="ibox-header">
+                <i class="fa fa-lg fa-question-circle"></i>
+                <span>提示</span>
+            </div><hr>
+            <div class="ibox-content">
+                <p>确定添加所选区域？</p>
+                <ul class="shortcut-box clearfix">
+                    <!--确认，打勾-->
+                   <li data-toggle="modal" data-target="#com_Modal" class="myli1" id="selectModel">
+                        <div id="selectModeldiv" onclick="closecomBox()">
+                            <i class="fa fa-check-circle-o fa-2x"></i>
+                        </div>
+                    </li>
+                    <!--取消，删除-->
+                    <li class="myli1">
+                        <div onclick="clearAll()">
+                            <i class="fa fa-times-circle-o fa-2x"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+	    </div>
+    <!-- 派出所区域级别增加模态框-->
+    <div class="modal fade " id="pol_Modal" tabindex="-1" role="dialog"
+         aria-labelledby="polModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="polModalLabel">
+                        新增派出所区域信息
+                    </h4>
+                </div>
+                <!--派出所区域信息表-->
+                <div class="modal-body"  id="pol_modal_div" >
+                    <table id="pol_table" class="table" style="border-bottom:none;text-align:center">
+                        <tr>
+                            <th>区域名称</th>
+                            <td><input type="text" class="pol_place"></td>
+                        </tr>
+                        <tr>
+                            <th>等级</th>
+                            <td><input type="text" class="pol_leval" id="pol_lev"/></td>
+                        </tr>
+                        <tr>
+                            <th>中心坐标点</th>
+                            <td><input type="text" class="pol_coord" id="pol_coo"/></td>
+                        </tr>
+                        <tr>
+                            <th>负责人</th>
+                            <td><input type="text" class="pol_person"></td>
+                        </tr>
+                        <tr>
+                            <th>电话</th>
+                            <td><input type="text" class="pol_tel"></td>
+                        </tr>
+                        <tr>
+                            <th>邮箱</th>
+                            <td><input type="text" class="pol_email"></td>
+                        </tr>
+                        <tr>
+                            <th>所属区域</th>
+                            <td><input type="text" class="pol_police" id="pol_police"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <input type="button"  value="关闭" data-dismiss="modal" />
+                    <input type="button"  onclick="polInfomation()" value="提交"/>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- 社区级别增加模态框（Modal） -->
+    <div class="modal fade" id="com_Modal" tabindex="-1" role="dialog" aria-labelledby="comModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="comModalLabel">
+                        新增社区区域信息
+                    </h4>
+                </div>
+                <div class="modal-body"  id="com_modal_div" >
+                    <table id="com_table" class="table" style="border-bottom:none;text-align:center">
+                        <tr>
+                            <th>区域名称</th>
+                            <td><input type="text" id="com_place" class="com_place"></td>
+                        </tr>
+                        <tr>
+                            <th>等级</th>
+                            <td><input type="text"  class="com_leval" id="com_lev"></td>
+                        </tr>
+                        <tr>
+                            <th>坐标</th>
+                            <td><input type="text"   class="com_coord" id="com_coo"></td>
+                        </tr>
+                        <tr>
+                            <th>负责人</th>
+                            <td><input type="text" id="com_person" class="com_person"></td>
+                        </tr>
+                        <tr>
+                            <th>电话</th>
+                            <td><input type="text" id="com_tel" class="com_tel"></td>
+                        </tr>
+                        <tr>
+                            <th>邮箱</th>
+                            <td><input type="text" id="com_email" class="com_email"></td>
+                        </tr>
+                        <tr>
+                            <th>所属派出所</th>
+                            <td><input type="text" id="com_police" class="com_police"></td>
+                        </tr>
+                        <tr>
+                            <th>街道</th>
+                            <td><input type="text" id="com_street" class="com_street"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick=comsubmit()>提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 社区信息表详情表模态框-->
+    <div class="modal fade" id="viewcomModal" tabindex="-1" role="dialog" aria-labelledby="vcModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="vcModalLabel">
+                        社区区域信息详情
+                    </h4>
+                </div>
+                <div class="modal-body"  id="comview_modal_div" >
+                <div id="com_info" style=" text-align:center" >
+                    <table id="com_info_table" class="table" style="border-bottom:1px;
+                    text-align:center">
+                        <tr>
+                            <th>区域名称</th>
+                            <td><span id="com_place_info"></span></td>
+                        </tr>
+                        <tr>
+                            <th>等级</th>
+                            <td><span id="com_leval_info"></span></td>
+                        </tr>
+                        <tr>
+                            <th>坐标</th>
+                            <td><span id="com_coord_info"></span></td>
+                        </tr>
+                        <tr>
+                            <th>负责人</th>
+                            <td>
+                                <div id="cominputdiv"  >
+                                    <input type="text"  class="text" id="com_person_input" name="personinput" />
+                                </div>
+                                <div id="comspandiv">
+                                    <span id="com_person_info" name="personspan"></span>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>联系电话</th>
+                            <td>
+                                <div id="cellPhonediv"  >
+                                    <input type="text"  class="text" id="com_cell_input" name="tel" />
+                                </div>
+                                <div id="cellPhonespandiv">
+                                    <span id="com_cell_info" name="cellPhonespan" ></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>所属派出所</th>
+                            <td><span id="com_police_info"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div id="changebtn">
+                                 <input type="button" id="com_reset" value="重置" onclick="com_reset()"/>
+                                 <input type="button" id="com_submit" value="提交" onclick="com_submit()"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 派出所级别的信息详情-->
+    <div class="modal fade" id="viewpolModal" tabindex="-1" role="dialog" aria-labelledby="vpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="vpModalLabel">
+                        派出所区域信息详情
+                    </h4>
+                </div>
+                <div class="modal-body"  id="polview_modal_div" >
+                    <div id="pol_info" style=" text-align:center" >
+                        <table id="pol_info_table" class="table" style="border-bottom:1px;text-align:center">
+                            <tr>
+                                <th>区域名称</th>
+                                <td><span class="pol_place_info" id="pol_place_info"></span></td>
+                            </tr>
+                            <tr>
+                                <th>等级</th>
+                                <td><span class="pol_level_info" id="pol_level_info"></span></td>
+                            </tr>
+                            <tr>
+                                <th>坐标</th>
+                                <td><span id="pol_coord_info" class="pol_cood_info"></span></td>
+                            </tr>
+                            <tr>
+                                <th>负责人</th>
+                                <td>
+                                    <div id="polinputdiv"  >
+                                        <input type="text"  class="text" id="pol_person_input" name="personinput" />
+                                    </div>
+                                    <div id="polspandiv">
+                                        <span id="pol_person_info" name="personspan"></span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>联系电话</th>
+                                <td>
+                                    <div id="polcellPhonediv"  >
+                                        <input type="text"  class="text" id="pol_cell_input" name="tel" />
+                                    </div>
+                                    <div id="polcellPhonespandiv">
+                                        <span id="pol_cell_info" name="cellPhonespan" ></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>所属区域</th>
+                                <td><span id="pol_police_info" class="pol_police_info"></span></td>
+                            </tr>
+                            <tr >
+                                <td colspan="2">
+                                    <div id="polchangebtn">
+                                        <input type="button" id="pol_reset" value="重置" onclick="pol_reset()"/>
+                                        <input type="button" id="pol_submit" value="提交" onclick="pol_submit()"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        //地图画完后确定还是取消的模态框
+        $(".ibox").hide();
+       //全局的地图，起名为map
+         var map = new BMap.Map("map");
+         var poi = new BMap.Point(120.19, 30.26);
+         map.centerAndZoom(poi, 10);
+         map.enableScrollWheelZoom();
+
+       //点击大区区域名称的时候触发大区区域调转
+        $("a.myarea").click(function () {
+            var areaName = $(this).attr("id"); //获取a的id名字
+            var area;
+        switch (areaName) {
+            case ("jiangganqu"):
+            {
+                area = "杭州市江干区";
+            }
+                break;
+            case ("gongshuqu"):
+            {
+                area = "杭州市拱墅区";
+            }
+                break;
+            case ("xihuqu"):
+            {
+                area = "杭州市西湖区";
+            }
+                break;
+            case ("shangchengqu"):
+            {
+                area = "杭州市上城区";
+            }
+                break;
+            case ("xiachengqu"):
+            {
+                area = "杭州市下城区";
+            }
+                break;
+            case ("yuhangqu"):
+            {
+                area = "杭州市余杭区";
+            }
+                break;
+            case ("binjiangqu"):
+            {
+                area = "杭州市滨江区";
+            }
+                break;
+            case ("xiaoshanqu"):
+            {
+                area = "杭州市萧山区";
+            }
+                break;
+        };
+        getBoundary(area);
+        });
+        getBoundary("杭州市江干区");
+
+        var overlays = [];     //经纬度坐标点数组
+        var base=new Array();   //多边形生成
+        var points=new Array();   //多边形绘制的点数组
+        var coordinate=new Array();
+        // 打勾，关闭提示框
+        function closecomBox(){
+            $("#com_Modal").show();
+            $(".ibox").hide();   
+            // 暂时关闭绘制功能.填写完模态框的信息后，再次开启绘制功能　
+           /* drawingManager.close();*/
+        }
+       /* pol填写信息时关闭box*/
+       function closepolBox() {
+            $("#pol_Modal").show();
+            $(".ibox").hide();
+            // 暂时关闭绘制功能.填写完模态框的信息后，再次开启绘制功能　
+           /* drawingManager.close();*/
+        }
+       //"x",放弃绘制区域
+       function clearAll(){
+           $(".ibox").fadeOut();  
+           $(".resultShape").fadeOut();
+        //  隐藏绘制区域，但是保留行政区划 
+          overlay.hide();
+        //  继续新的绘制
+            drawingManager.close();
+        }
+    </script>
+</body>
+</html>

@@ -5,14 +5,12 @@ var point=new Array();
 var point_id=1;
 //marker数组
 var mark_ary=new Array();
-
 //地图生成
 var base=new Array();
-
 //数据传输
 var coordinate=new  Array();
 
-function creatmap() {
+/*function creatmap() {
 
     map=new BMap.Map("container",{minZoom:1,maxZoom:18});
     var  point=new BMap.Point(120.349795,30.3190200);
@@ -71,7 +69,7 @@ function Getaddmenu() {
 
         }
     ];
-     return Menu;
+    return Menu;
 }
 //右键菜单添加
 function mark_menu() {
@@ -133,9 +131,10 @@ function remove_mark(point_id) {
             point.splice(n,1);
         }
     }
-}
+}*/
 //多边形生成
 function set_polygon() {
+
 
     for(i=0;i<mark_ary.length;i++)
     {

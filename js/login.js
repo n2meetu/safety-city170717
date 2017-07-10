@@ -57,6 +57,7 @@ if(objChk.checked){
 }*/
 
 function login(){
+
     var username = $("#user_name").val();
     var password = $("#user_password").val();
   /*  var objChk = document.getElementById("chkRememberPass");*/
@@ -80,15 +81,15 @@ function login(){
         },
         dataType:"json",
         success:function(state){
-             if(state == 1){
+             if(state.state == 1){
                 $("#user_name").attr("placeholder" ,"用户未注册，请注册！");
-             }else if(state==2){
+             }else if(state.state==2){
                 $("#user_password").attr("placeholder" ,"密码错误，请重新输入！");
-             }else if(state==3){
+             }else if(state.state==3){
                  window.location.href = "index.html";
-             }else if(state==4){
+             }else if(state.state==4){
                  window.location.href = "index.html";
-             }else if(state==5){
+             }else if(state.state==5){
                  alert("用户已注册，未通过审核，等待审核！");
              }
         }
