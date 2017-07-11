@@ -1,0 +1,179 @@
+
+#pol_Modal,
+#com_Modal,
+#viewcomModal,
+#viewpolModal {
+    position: fixed;
+    font-family: 'KaiGenGothicSC-Light';
+}
+
+.modal-dialog {
+    margin: 30px 0 30px 80%
+}
+
+.modal-content {
+    color: white;
+    width: 47%;
+    background-color: rgba(149, 172, 185, 0.8);
+}
+
+.table>tbody>tr>th,
+.table>tbody>tr>td {
+    border-top: none;
+}
+
+input {
+    border-radius: 1px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    min-height: 25px;
+    line-height: 25px;
+    text-align: center;
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+#allmap {
+    z-index: 1;
+    width: 83%;
+    height: 100%;
+    margin: 0;
+    font-family: "微软雅黑";
+}
+
+.information {
+    position: relative;
+}
+
+.panel-title {
+    text-align: left
+}
+
+
+/*手动添加区域*/
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: "微软雅黑";
+}
+
+#result {
+    width: 100%;
+    font-size: 12px;
+}
+
+dl,
+dt,
+dd,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+p {
+    font-size: 12px;
+}
+
+dt {
+    font-size: 14px;
+    font-family: "微软雅黑";
+    font-weight: bold;
+    border-bottom: 1px dotted #000;
+    padding: 5px 0 5px 5px;
+    margin: 5px 0;
+}
+
+dd {
+    padding: 5px 0 0 5px;
+}
+
+li {
+    line-height: 28px;
+}
+
+
+/*模态框*/
+
+hr {
+    margin: 8px;
+    background-color: lightgrey;
+    height: 1px;
+    border: grey;
+}
+
+.ibox {
+    position: absolute;
+    z-index: 999;
+    width: 450px;
+    height: 162px;
+    text-align: center;
+    background-color: rgba(149, 172, 185, 0.8);
+    left: 45%;
+    top: 36%;
+    color: white;
+    font-size: 24px;
+}
+
+.ibox-content p {
+    font-size: 22px;
+}
+
+.ibox-header {
+    text-align: left;
+    padding: 3px 0 0 10px;
+}
+
+.ibox ul {
+    padding-left: 0;
+}
+
+.shortcut-box>li {
+    height: 40px !important;
+    color: #45b6c8;
+    ;
+    border: none !important;
+    text-align: center;
+    box-sizing: border-box;
+    padding-left: 8px;
+    padding-right: 6px;
+    display: inline-block;
+}
+
+.fa-times-circle-o {
+    color: red;
+}
+
+.myli1:hover {
+    cursor: pointer
+}
+
+.fa-check-circle-o {
+    color: green;
+}
+
+
+/*显示经纬度*/
+
+.resultShape {
+    font-size: 12px;
+    text-align: left;
+}
+
+.panel-title a {
+    text-decoration: none;
+}
+
+i.fa:hover {
+    cursor: pointer
+}
+
+.pol_person,.com_person,#cominputdiv,#polinputdiv{color: lightslategray}
+        #cellPhonediv,#polcellPhonediv{color: lightslategray}
