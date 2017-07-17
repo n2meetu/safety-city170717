@@ -71,7 +71,7 @@
 			width: 60%;
 			float: left;
 			margin-top: 23px;
-			margin-left: 120px;
+			margin-left:120px;
 			font-size: 14px;
 			color: white
 		}
@@ -82,10 +82,8 @@
 			width: 17%;
 			height: 100%;
 		}
-
-		.bar:hover {
-			cursor: pointer
-		}
+		
+		.bar:hover{cursor: pointer}
 
 		#bar-left {
 			float: right;
@@ -93,7 +91,4 @@
 			height: 100%
 		}
 
-		.userWel {
-			float: left;
-			padding-top: 30px;
-		}
+		.userWel{float: left;padding-top: 30px;}

@@ -2,9 +2,7 @@
  * Created by lpf on 2017/7/9.
  */
 
-
 /*创建地图*/
-
 function creatmap() {
     var map = new BMap.Map("map");
     var poi = new BMap.Point(120.19, 30.26);

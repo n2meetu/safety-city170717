@@ -137,8 +137,7 @@ hr {
 
 .shortcut-box>li {
     height: 40px !important;
-    color: #45b6c8;
-    ;
+    color: #45b6c8;;
     border: none !important;
     text-align: center;
     box-sizing: border-box;
@@ -174,6 +173,5 @@ hr {
 i.fa:hover {
     cursor: pointer
 }
-
 .pol_person,.com_person,#cominputdiv,#polinputdiv{color: lightslategray}
-        #cellPhonediv,#polcellPhonediv{color: lightslategray}
+#cellPhonediv,#polcellPhonediv{color: lightslategray}

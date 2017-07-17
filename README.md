@@ -1,2 +1,0 @@
-# C-Tests
-safe-city

@@ -1,6 +1,7 @@
 /**
- * Created by lpf on 2017/6/29.
+ * Created by lpf on 2017/7/15.
  */
+ 
 /*多边形生成,并产生中心点坐标*/
 function add_polygon() {
     for(i=0;i<points.length;i++)
@@ -18,7 +19,8 @@ function add_polygon() {
 }
 
 function addtip(a) {
-    drawMangnger();
+    //获取点击+处的class，现在只对第这样做的，上两级重构
+    drawMangnger();   //触发地图绘制工具
     if(a=="addpol"||a=="gongshuquaddpol"||a=="xihuquaddpol"||a=="shangchengquaddpol"||a=="xiachengquaddpol"
         ||a=="xiaoshanquaddpol"||a=="binjiangquaddpol"||a=="yuhangquaddpol")
     {
@@ -28,76 +30,47 @@ function addtip(a) {
 
         if(a=="addpol"){
             var pol_pol=$("#jiangganqu").html();
-           /* var pol_pol= $("#addpol").prev().html(); /!*得到当前大区名称*!/*/
             $("#pol_police").attr("value",pol_pol);   /* 提交的框内大区区域名称*/
         }else if(a=="gongshuquaddpol"){
             var gs_pol=$("#gongshuqu").html();
-          /*  var gs_pol=$("#gongshuquaddpol").prev().html();*/
             $("#pol_police").attr("value",gs_pol);   /* 提交的框内大区区域名称*/
         }else if(a=="xihuquaddpol"){
             var xh_pol=$("#xihuqu").html();
-           /* var xh_pol=$("#gongshuquaddpol").prev().html();*/
             $("#pol_police").attr("value",xh_pol);   /* 提交的框内大区区域名称*/
         }else if(a=="yuhangquaddpol"){
             var yh_pol=$("#yuhangqu").html();
-           /* var yh_pol=$("#gongshuquaddpol").prev().html();*/
             $("#pol_police").attr("value",yh_pol);   /* 提交的框内大区区域名称*/
         }else if(a=="shangchengquaddpol"){
             var sc_pol=$("#shangchengqu").html();
-            /*var sc_pol=$("#gongshuquaddpol").prev().html();*/
             $("#pol_police").attr("value",sc_pol);   /* 提交的框内大区区域名称*/
         }else if(a=="xiachengquaddpol"){
             var xc_pol=$("#xiachengqu").html();
-           /* var xc_pol=$("#gongshuquaddpol").prev().html();*/
             $("#pol_police").attr("value",xc_pol);   /* 提交的框内大区区域名称*/
         }else if(a=="binjiangquaddpol"){
             var bj_pol=$("#binjiangqu").html();
-            // var bj_pol=$("#gongshuquaddpol").prev().html();
             $("#pol_police").attr("value",bj_pol);   /* 提交的框内大区区域名称*/
         }else if(a=="xiaoshanquaddpol"){
             var xs_pol=$("#xiaoshanqu").html();
-           /* var xs_pol=$("#gongshuquaddpol").prev().html();*/
             $("#pol_police").attr("value",xs_pol);   /* 提交的框内大区区域名称*/
         }
         add_polygon();
     }else if(a=="addcom"||a=="gongshuquaddcom"||a=="xihuquaddcom"||a=="shangchengquaddcom"||a=="xiachengquaddcom"
     ||a=="xiaoshanquaddcom"||a=="binjiangquaddcom"||a=="yuhangquaddcom"){
-
         $("#selectModel").attr("data-target","#com_Modal");
         $("#com_lev").attr("value","3");
-       if(a=="addcom"){
-           var com_com=$("#addcom").prev().html();      //得到当前派出所名称
-           $("#com_police").attr("value",com_com);      //为当前社区添加派出所名称
-       }else if(a=="gongshuquaddcom"){
-           var gs_com=$("#gongshuquaddcom").prev().html();      //得到当前派出所名称
-           $("#com_police").attr("value",gs_com);      //为当前社区添加派出所名称
-       }else if(a=="xihuquaddcom"){
-           var xh_com=$("#xihuquaddcom").prev().html();      //得到当前派出所名称
-           $("#com_police").attr("value",xh_com);      //为当前社区添加派出所名称
-       }else if(a=="shangchengquaddcom"){
-           var sc_com=$("#shangchengquaddcom").prev().html();      //得到当前派出所名称
-           $("#com_police").attr("value",sc_com);      //为当前社区添加派出所名称
-       }else if(a=="xiachengquaddcom"){
-           var xc_com=$("#xiachengquaddcom").prev().html();      //得到当前派出所名称
-           $("#com_police").attr("value",xc_com);      //为当前社区添加派出所名称
-       }else if(a=="xiaoshanquaddcom"){
-           var xs_com=$("#xiaoshanquaddcom").prev().html();      //得到当前派出所名称
-           $("#com_police").attr("value",xs_com);      //为当前社区添加派出所名称
-       }else if(a=="binjiangquaddcom"){
-           var bj_com=$("#binjiangquaddcom").prev().html();      //得到当前派出所名称
-           $("#com_police").attr("value",bj_com);      //为当前社区添加派出所名称
-       }else if(a=="yuhangquaddcom"){
-           var yh_com=$("#yuhangquaddcom").prev().html();      //得到当前派出所名称
-           $("#com_police").attr("value",yh_com);      //为当前社区添加派出所名称
-       }
         add_polygon();
+    }else if(a=="addlou"){
+        $("#selectModel").attr("data-target","#sta_Modal");
+        $("#selectModeldiv").attr("onclick","closestaBox()")
+        $("#sta_lev").attr("value","4");
+       /* 第四级其他操作*/
+       add_polygon();
     }
 }
 
 /*江干区菜单列表*/
 function get_Polgon(a){
-     //a为当前点击的id
-    map.clearOverlays();
+    map.clearOverlays();    //a为当前点击的<a>
     var poly=a;
     var name=$("#"+poly).html();
     var b='menu'
@@ -106,52 +79,46 @@ function get_Polgon(a){
         url:"http://10.1.17.28:8090/safecity/selectPolygon",
         data:
             {
-            name:name,
-            action:b
-        },
+                name:name,
+                action:b
+            },
         dataType:"json",
-        success:function(state){
-            var html='<div class="panel panel-default"  style="width:100%;text-align:center">'
-                +'<div class="panel-heading" id="polheading">'
-                +'<h4 class="panel-title">'
-                +'<table style="width:100%;text-align:center">'
-                +'<tr>'
-                +'<th>'
-                +'<a data-toggle="collapse" data-parent="#polaccordion" href="#collapseplo" class="polname" onclick="send_com(this.id)">'
-                +'</a>'
-                + '<i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="addcom" onclick="addtip(this.id)">'
-                +'</i>'
-                +'</th>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-check-square-o "data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()">'
-                + '</i>'+'</a>'
-                +'</td>'+'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-times-rectangle-o" onclick="delete_pol();">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
-                +'</h4>'
-                +'</div>';
+                success:function(state){
+            //防止派出所在添加时重复出现
             $("#polaccordion").get(0).innerHTML = "";
+            for(var i=0;i<state.menu.length;i++){
 
-             for(var i=0;i<state.menu.length;i++){
-                 $("#polaccordion").append(html);
+                var html=
 
-              /* 动态产生一个class,根据动态的class来产生不同的id*/
+                    '<div class="panel panel-default">'
+                    +'<div class="panel-heading">'   //派出所级别的标题名称
+                    +'<h4 class="panel-title">'
+                    +'<a data-toggle="collapse" data-parent="#polaccordion" href="#collapsejgpol'+i+'" class="polname" onclick="get_com(this.id ,'+i+')">'
+                    +'</a>'
+                    +'</h4>'
+                    +'</div>'
+
+                    +'<div class="panel-collapse collapse" id="collapsejgpol'+i+'">'
+                    +'<div class="panel-body">'
+                    +'<div class="panel-group"  id="jgcom'+i+'" > '
+
+                    //将社区级别循环展现在该处
+
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+
+                +'</div>';
+                $("#polaccordion").append(html);
+                /* 根据固定class 动态产生一个class,根据动态的class来产生不同的id,来赋值派出所名称*/
                 $(".polname").attr("class","polname"+i);
                 $("."+"polname"+i).attr("id","polname"+i);
-                $("#"+"polname"+i).html(state.menu[i]);
-                $(".pol_place_info").html(state.menu[i]);
+                $("#"+"polname"+i).html(state.menu[i]);   //循环添加派出所级别的名称
+
+                /* 查看派出所详情处的class和id*/
+                $(".viewpol").attr("class","viewpol"+i);
+                $("."+"viewpol"+i).attr("id","viewpol"+i);  //
+
             }
         }}
     );
@@ -173,49 +140,38 @@ function get_gsPolgon(a){
             },
         dataType:"json",
         success:function(state){
-            var html='<div class="panel panel-default"  style="width:100%;text-align:center">'
-                +'<div class="panel-heading" id="gsheading">'
-                +'<h4 class="panel-title">'
-                +'<table style="width:100%;text-align:center">'
-                +'<tr>'
-                +'<th>'
-                +'<a data-toggle="collapse" data-parent="#gongshuqupolaccordion" href="#gongshuqucollapseplo" class="polname" onclick="send_gscom(this.id)">'
-                +'</a>'
-                + '<i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="gongshuquaddcom" onclick="addtip(this.id)">'
-                +'</i>'
-                +'</th>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-check-square-o "data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()">'
-                + '</i>'+'</a>'
-                +'</td>'+'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-times-rectangle-o" onclick="delete_pol();">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
-                +'</h4>'
-                +'</div>';
+
             $("#gongshuqupolaccordion").get(0).innerHTML = "";
             for(var i=0;i<state.menu.length;i++){
+
+                var html=
+                    '<div class="panel panel-default">'
+                    +'<div class="panel-heading">'   //派出所级别的标题名称
+                    +'<h4 class="panel-title">'
+                    +'<a data-toggle="collapse" data-parent="#gongshuqupolaccordion" href="#collapsegspol'+i+'" class="polname" onclick="send_gscom(this.id ,'+i+')">'
+                    +'</a>'
+                    +'</h4>'
+                    +'</div>'
+
+                    +'<div class="panel-collapse collapse" id="collapsegspol'+i+'">'
+                    +'<div class="panel-body" id="gscom'+i+'">'
+                    +'<div class="panel-group"> '
+                    //将社区级别循环展现在该处
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>';
+
                 /*  此处还应修改id和class*/
                 $("#gongshuqupolaccordion").append(html);
-                /* 动态产生一个class,根据动态的class来产生不同的id*/
+                /* 动态产生一个class,根据动态的class来产生不同的id绑定显示处*/
                 $(".polname").attr("class","gongshuqupolname"+i);
                 $("."+"gongshuqupolname"+i).attr("id","gongshuqupolname"+i);
                 $("#"+"gongshuqupolname"+i).html(state.menu[i]);
+                //信息查看动态添加class和id
 
-                $(".pol_place_info").html(state.menu[i]);
-                $(".pol_police_info").html()
-
+                $(".gsviewpol").attr("class","gsviewpol"+i);
+                $("."+"gsviewpol"+i).attr("id","gsviewpol"+i);
             }
         }}
     );
@@ -237,50 +193,41 @@ function get_xhPolgon(a){
             },
         dataType:"json",
         success:function(state){
-            var html='<div class="panel panel-default"  style="width:100%;text-align:center">'
-                +'<div class="panel-heading" id="xhheading">'
-                +'<h4 class="panel-title">'
-                +'<table style="width:100%;text-align:center">'
-                +'<tr>'
-                +'<th>'
-                +'<a data-toggle="collapse" data-parent="#xihuqupolaccordion" href="#xihuqucollapseplo" class="polname" onclick="send_xhcom(this.id)">'
-                +'</a>'
-                + '<i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="xihuquaddcom" onclick="addtip(this.id)">'
-                +'</i>'
-                +'</th>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-check-square-o "data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()">'
-                + '</i>'+'</a>'
-                +'</td>'+'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-times-rectangle-o" onclick="delete_pol();">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
-                +'</h4>'
-                +'</div>';
+
             $("#xihuqupolaccordion").get(0).innerHTML = "";
             for(var i=0;i<state.menu.length;i++){
+
+                var html=
+                    '<div class="panel panel-default">'
+                    +'<div class="panel-heading">'   //派出所级别的标题名称
+                    +'<h4 class="panel-title">'
+
+                    +'<a data-toggle="collapse" data-parent="#xihuqupolaccordion" href="#collapsexhpol'+i+'" class="polname" onclick="send_xhcom(this.id ,'+i+')">'
+                    +'</a>'
+
+                    +'</h4>'
+                    +'</div>'
+
+                    +'<div class="panel-collapse collapse" id="collapsexhpol'+i+'">'
+                    +'<div class="panel-body" id="xhcom'+i+'">'
+                    +'<div class="panel-group"> '
+
+                    //将社区级别循环展现在该处
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>';
+
                 /*  此处还应修改id和class*/
                 $("#xihuqupolaccordion").append(html);
-                /* 动态产生一个class,根据动态的class来产生不同的id*/
-
+                /* 动态产生一个class,根据动态的class来产生不同的id绑定显示处*/
                 $(".polname").attr("class","xihuqupolname"+i);
                 $("."+"xihuqupolname"+i).attr("id","xihuqupolname"+i);
                 $("#"+"xihuqupolname"+i).html(state.menu[i]);
+                //信息查看动态添加class和id
 
-                $(".pol_place_info").html(state.menu[i]);
-                $(".pol_police_info").html()
-
+                $(".xhviewpol").attr("class","xhviewpol"+i);
+                $("."+"xhviewpol"+i).attr("id","xhviewpol"+i);
             }
         }}
     );
@@ -305,32 +252,8 @@ function get_scPolgon(a){
             var html='<div class="panel panel-default"  style="width:100%;text-align:center">'
                 +'<div class="panel-heading" id="scheading">'
                 +'<h4 class="panel-title">'
-                +'<table style="width:100%;text-align:center">'
-                +'<tr>'
-                +'<th>'
-                +'<a data-toggle="collapse" data-parent="#shangchengqupolaccordion" href="#shangchengqucollapseplo" class="polname" onclick="send_sccom(this.id)">'
+                +'<a data-toggle="collapse" data-parent="#shangchengqupolaccordion" href="#shangchengqucollapsepol" class="polname" onclick="send_sccom(this.id)">'
                 +'</a>'
-                + '<i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="shangchengquaddcom" onclick="addtip(this.id)">'
-                +'</i>'
-                +'</th>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-check-square-o "data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()">'
-                + '</i>'+'</a>'
-                +'</td>'+'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-times-rectangle-o" onclick="delete_pol();">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
                 +'</h4>'
                 +'</div>';
             $("#shangchengqupolaccordion").get(0).innerHTML = "";
@@ -343,8 +266,9 @@ function get_scPolgon(a){
                 $("."+"shangchengqupolname"+i).attr("id","shangchengqupolname"+i);
                 $("#"+"shangchengqupolname"+i).html(state.menu[i]);
 
-                $(".pol_place_info").html(state.menu[i]);
-                $(".pol_police_info").html()
+                $(".scviewpol").attr("class","scviewpol"+i);
+                $("."+"scviewpol"+i).attr("id","scviewpol"+i);
+
 
             }
         }}
@@ -370,32 +294,8 @@ function get_xcPolgon(a){
             var html='<div class="panel panel-default"  style="width:100%;text-align:center">'
                 +'<div class="panel-heading" id="xcheading">'
                 +'<h4 class="panel-title">'
-                +'<table style="width:100%;text-align:center">'
-                +'<tr>'
-                +'<th>'
-                +'<a data-toggle="collapse" data-parent="#xiachengqupolaccordion" href="#xiachengqucollapseplo" class="polname" onclick="send_xccom(this.id)">'
+                +'<a data-toggle="collapse" data-parent="#xiachengqupolaccordion" href="#xiachengqucollapsepol" class="polname" onclick="send_xccom(this.id)">'
                 +'</a>'
-                + '<i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="xiachengquaddcom" onclick="addtip(this.id)">'
-                +'</i>'
-                +'</th>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-check-square-o "data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()">'
-                + '</i>'+'</a>'
-                +'</td>'+'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-times-rectangle-o" onclick="delete_pol();">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
                 +'</h4>'
                 +'</div>';
             $("#xiachengqupolaccordion").get(0).innerHTML = "";
@@ -408,8 +308,10 @@ function get_xcPolgon(a){
                 $("."+"xiachengqupolname"+i).attr("id","xiachengqupolname"+i);
                 $("#"+"xiachengqupolname"+i).html(state.menu[i]);
 
-                $(".pol_place_info").html(state.menu[i]);
-                $(".pol_police_info").html()
+                $(".xcviewpol").attr("class","xcviewpol"+i);
+                $("."+"xcviewpol"+i).attr("id","xcviewpol"+i);
+                // $(".pol_place_info").html(state.menu[i]);
+               /* $(".pol_police_info").html()*/
 
             }
         }}
@@ -435,32 +337,8 @@ function get_bjPolgon(a){
             var html='<div class="panel panel-default"  style="width:100%;text-align:center">'
                 +'<div class="panel-heading" id="bjheading">'
                 +'<h4 class="panel-title">'
-                +'<table style="width:100%;text-align:center">'
-                +'<tr>'
-                +'<th>'
-                +'<a data-toggle="collapse" data-parent="#binjiangqupolaccordion" href="#binjiangqucollapseplo" class="polname" onclick="send_bjcom(this.id)">'
+                +'<a data-toggle="collapse" data-parent="#binjiangqupolaccordion" href="#binjiangqucollapsepol" class="polname" onclick="send_bjcom(this.id)">'
                 +'</a>'
-                + '<i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="binjiangquaddcom" onclick="addtip(this.id)">'
-                +'</i>'
-                +'</th>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-check-square-o "data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()">'
-                + '</i>'+'</a>'
-                +'</td>'+'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-times-rectangle-o" onclick="delete_pol();">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
                 +'</h4>'
                 +'</div>';
             $("#binjiangqupolaccordion").get(0).innerHTML = "";
@@ -473,8 +351,10 @@ function get_bjPolgon(a){
                 $("."+"binjiangqupolname"+i).attr("id","binjiangqupolname"+i);
                 $("#"+"binjiangqupolname"+i).html(state.menu[i]);
 
-                $(".pol_place_info").html(state.menu[i]);
-                $(".pol_police_info").html()
+                $(".bjviewpol").attr("class","bjviewpol"+i);
+                $("."+"bjviewpol"+i).attr("id","bjviewpol"+i);
+               /* $(".pol_place_info").html(state.menu[i]);*/
+               /* $(".pol_police_info").html()*/
 
             }
         }}
@@ -503,18 +383,17 @@ function get_yhPolgon(a){
                 +'<table style="width:100%;text-align:center">'
                 +'<tr>'
                 +'<th>'
-                +'<a data-toggle="collapse" data-parent="#yuhangqupolaccordion" href="#yuhangqucollapseplo" class="polname" onclick="send_yhcom(this.id)">'
+                +'<a data-toggle="collapse" data-parent="#yuhangqupolaccordion" href="#yuhangqucollapsepol" class="polname" onclick="send_yhcom(this.id)">'
                 +'</a>'
-                + '<i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="yuhangquaddcom" onclick="addtip(this.id)">'
-                +'</i>'
                 +'</th>'
+
+                +'<td>'
+                +'<a class="yhviewpol" onclick="view_pol_info(this.id)"><i class="fa fa-lg fa-check-square-o"></i></a>'
+                +'</td>'
+
                 +'<td>'
                 +'<a href="#">'
-                +'<i class="fa fa-lg fa-check-square-o "data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()">'
-                + '</i>'+'</a>'
-                +'</td>'+'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()">'
+                +'<i class="fa fa-lg fa-pencil-square-o" class="mypol" onclick="change_pol_info()">'
                 +'</i>'
                 +'</a>'
                 +'</td>'
@@ -538,8 +417,10 @@ function get_yhPolgon(a){
                 $("."+"yuhangqupolname"+i).attr("id","yuhangqupolname"+i);
                 $("#"+"yuhangqupolname"+i).html(state.menu[i]);
 
-                $(".pol_place_info").html(state.menu[i]);
-                $(".pol_police_info").html()
+                $(".yhviewpol").attr("class","yhviewpol"+i);
+                $("."+"yhviewpol"+i).attr("id","yhviewpol"+i);
+               /* $(".pol_place_info").html(state.menu[i]);*/
+               /* $(".pol_police_info").html()*/
 
             }
         }}
@@ -565,32 +446,8 @@ function get_xsPolgon(a){
             var html='<div class="panel panel-default"  style="width:100%;text-align:center">'
                 +'<div class="panel-heading" id="xsheading">'
                 +'<h4 class="panel-title">'
-                +'<table style="width:100%;text-align:center">'
-                +'<tr>'
-                +'<th>'
-                +'<a data-toggle="collapse" data-parent="#xiaoshanqupolaccordion" href="#xiaoshanqucollapseplo" class="polname" onclick="send_xscom(this.id)">'
+                +'<a data-toggle="collapse" data-parent="#xiaoshanqupolaccordion" href="#xiaoshanqucollapsepol" class="polname" onclick="send_xscom(this.id)">'
                 +'</a>'
-                + '<i type="button" class="fa fa-1x fa-plus-square-o" class="addbtn" id="xiaoshanaddcom" onclick="addtip(this.id)">'
-                +'</i>'
-                +'</th>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-check-square-o "data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="view_pol_info()">'
-                + '</i>'+'</a>'
-                +'</td>'+'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewpolModal" class="mypol" onclick="change_pol_info()">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'
-                +'<i class="fa fa-lg fa-times-rectangle-o" onclick="delete_pol();">'
-                +'</i>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
                 +'</h4>'
                 +'</div>';
             $("#xiaoshanqupolaccordion").get(0).innerHTML = "";
@@ -603,87 +460,107 @@ function get_xsPolgon(a){
                 $("."+"xiaoshanqupolname"+i).attr("id","xiaoshanqupolname"+i);
                 $("#"+"xiaohsanqupolname"+i).html(state.menu[i]);
 
-                $(".pol_place_info").html(state.menu[i]);
-                $(".pol_police_info").html()
+                $(".xsviewpol").attr("class","xsviewpol"+i);
+                $("."+"xsviewpol"+i).attr("id","xsviewpol"+i);
+              /*  $(".pol_place_info").html(state.menu[i]);*/
+              /*  $(".pol_police_info").html()*/
 
             }
         }}
     );
 }
+
 
 /*增加社区级别*/
-/*点击添加+对区域进行添加*/
-function send_com(a){
+/*点击派出所级别进行添加下级菜单*/
+/*idNum相当于上一级的i*/
+function get_com(a,didNum){
     map.clearOverlays();
-    var newpoints=[];
     var comy=a;
-    var name=$("#"+comy).html();
+    var name=$("#"+comy).html();   //获取派出所名称
     var b='menu'
+   //实现点某个派出所时，展示社区
+  //  $("#"+a).parent().parent().parent().parent().parent().parent().next().attr("class","panel-collapse collapse in");
     $.ajax({
         type:"post",
         url:"http://10.1.17.28:8090/safecity/selectPolygon",
         data:
             {
-                name:name,
+                name:name,   //所属派出所
                 action:b
             },
         dataType:"json",
         success:function(state){
             for(i=0;i<state.points.length;i++) {
-                var a = new Object();
-                a.lat = state.points[i].lat;
-                a.lng = state.points[i].lng;
-                points.push(a);
+                var point = new Object();
+                point.lat = state.points[i].lat;
+                point.lng = state.points[i].lng;
+                points.push(point);
             }
-            var html= '<div id="collapseplo" class="panel-collapse collapse" style="width:100%">'
-                +'<div class="panel-body" id="body">'
-                +'<table style="width:100%">'
-                +'<tr>'
-                +'<td><a href="#" class="comname" onclick="getmap()"></a></td>'
-                +'<td>'
-                +'<a href="#"><i class="fa fa-lg fa-check-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="view_com_info()">'
-                +'</i>'+'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#"><i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="change_com_info()">'
-                +'</i>'+'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'+'<i class="fa fa-lg fa-times-rectangle-o" onclick="deletecom()">'
-                + '</i>'
-                +'</a>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
-                +'</div>'
-                +'</div>';
-            $("#polheading").get(0).innerHTML = "";
+
+            $("#"+"jgcom"+didNum).get(0).innerHTML = "";
+
             //产生派出所下的社区列表
             for(var i=0;i<state.menu.length;i++){
-              /*  此处还应修改id和class*/
-                $("#polheading").append(html);
-                /* 动态产生一个class,根据动态的class来产生不同的id*/
-                $(".comname").attr("class","jiangganqucomname"+i);
-                $("."+"jiangganqucomname"+i).attr("id","jiangganqucomname"+i);
-                $("#"+"jiangganqucomname"+i).html(state.menu[i]);
+                /*(function(i){*/
+                    var html=
+                        '<div class="panel panel-default">'
+                        +'<div class="panel-heading">'   //社区级别的标题名称
+                        +'<h4 class="panel-title">'
+
+                        +'<table style="width:100%">'
+                        +'<tr>'
+                        +'<td>'
+                        +'<a  data-toggle="collapse" data-parent="#jgcom'+didNum+'"  href="#collapsejgcom'+didNum+i+'" onclick="getmap(this.id,'+i+','+didNum+')">'
+                        +'</a>'
+
+                        +'<i type="button" class="fa fa-1x fa-plus-square-o" class="loubtn" id="addlou" onclick="addtip(this.id)">'
+                        +'</i>'
+
+                        +'</td>'
+                       
+                        +'</tr>'
+
+                        +'</table>'
+
+                        +'</h4>'
+                        +'</div>'
+
+                        +'<div class="panel-collapse collapse" id="collapsejgcom'+didNum+i+'">'
+                        +'<div class="panel-body" >'
+                        +'<div class="panel-group" id="jgsta'+didNum+i+'" class="xyz"> '
+
+                        //将社区级别循环展现在该处
+
+                        +'</div>'
+                        +'</div>'
+                        +'</div>'
+
+                        +'</div>';
+
+                    /*新加上的为每个社区上的div产生一个id，然后根据id来添加html*/
+                    $("#"+"jgcom"+didNum).append(html);
+                   /* $("#"+"collapsejgcom"+idNum+i).children().children().attr("id","jgsta"+i);*/
+
+                    $("#"+"jgcom"+didNum).children().eq(i).children().children().children().children().children().children().children(":first").attr("id","jgcom"+didNum+i);
+                    $("#"+"jgcom"+didNum+i).html(state.menu[i]);
+               /* })(i);*/
             }
-         //获取派出所级别的中心点并绘制派出所的图形
+            //获取派出所级别的中心点并绘制派出所的图形
             var str = state.centerPoint;
             var strs=[]
             strs=str.split(",")
             var a = strs[0];
             var b = strs[1];
             var center = new BMap.Point(a,b);
-            map.centerAndZoom(center,14);
+            map.centerAndZoom(center,15);
             map.enableScrollWheelZoom();
             add_polygon();
         }}
     );
 }
-function send_gscom(a){
+function send_gscom(a,idNum){
     map.clearOverlays();
-    var newpoints=[];
     var comy=a;
     var name=$("#"+comy).html();
     var b='menu'
@@ -704,106 +581,108 @@ function send_gscom(a){
                 a.lng = state.points[i].lng;
                 points.push(a);
             }
-            console.log(points)
-            var html= '<div id="gongshuqucollapseplo" class="panel-collapse collapse" style="width:100%">'
-                +'<div class="panel-body" id="body">'
-                +'<table style="width:100%">'
-                +'<tr>'
-                +'<td><a href="#" class="comname" onclick="getmap()"></a></td>'
-                +'<td>'
-                +'<a href="#"><i class="fa fa-lg fa-check-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="view_com_info()">'
-                +'</i>'+'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#"><i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="change_com_info()">'
-                +'</i>'+'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'+'<i class="fa fa-lg fa-times-rectangle-o" onclick="deletecom()">'
-                + '</i>'
-                +'</a>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
-                +'</div>'
-                +'</div>';
 
-             $("#gsheading").get(0).innerHTML = "";
-             for(var i=0;i<state.menu.length;i++){
-                $("#gsheading").append(html);
-                /* 动态产生一个class,根据动态的class来产生不同的id*/
-                $(".comname").attr("class","gongshuqucomname"+i);
-                $("."+"gongshuqucomname"+i).attr("id","gongshuqucomname"+i);
-                $("#"+"gongshuqucomname"+i).html(state.menu[i]);
-            }
-
-            var str = state.centerPoint;
-            var strs=[]
-            strs=str.split(",")
-            var a = strs[0];
-            var b = strs[1];
-            var center = new BMap.Point(a,b);
-            map.centerAndZoom(center,14);
-            map.enableScrollWheelZoom();
-            add_polygon();
-        }}
-    );
-}
-function send_xhcom(a){
-    map.clearOverlays();
-    var newpoints=[];
-    var comy=a;
-    var name=$("#"+comy).html();
-    var b='menu'
-    $.ajax({
-        type:"post",
-        url:"http://10.1.17.28:8090/safecity/selectPolygon",
-        data:
-            {
-                name:name,
-                action:b
-            },
-        dataType:"json",
-        success:function(state){
-            for(i=0;i<state.points.length;i++) {
-                var a = new Object();
-                a.lat = state.points[i].lat;
-                a.lng = state.points[i].lng;
-                points.push(a);
-            }
-            var html= '<div id="xihuqucollapseplo" class="panel-collapse collapse" style="width:100%">'
-            +'<div class="panel-body" id="body">'
-            +'<table style="width:100%">'
-                +'<tr>'
-                +'<td><a href="#" class="comname" onclick="getmap()"></a></td>'
-                +'<td>'
-                +'<a href="#"><i class="fa fa-lg fa-check-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="view_com_info()">'
-                +'</i>'+'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#"><i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="change_com_info()">'
-                +'</i>'+'</a>'
-                +'</td>'
-                +'<td>'
-                +'<a href="#">'+'<i class="fa fa-lg fa-times-rectangle-o" onclick="deletecom()">'
-                + '</i>'
-                +'</a>'
-                +'</a>'
-                +'</td>'
-                +'</tr>'
-                +'</table>'
-                +'</div>'
-                +'</div>';
-            $("#xhheading").get(0).innerHTML = "";
+            $("#"+"gscom"+idNum).get(0).innerHTML = "";
             for(var i=0;i<state.menu.length;i++){
-                $("#xhheading").append(html);
-                /* 动态产生一个class,根据动态的class来产生不同的id*/
-                $(".comname").attr("class","gongshuqucomname"+i);
-                $("."+"xihuqucomname"+i).attr("id","xihuqucomname"+i);
-                $("#"+"xihuqucomname"+i).html(state.menu[i]);
+                 var html=
+                     '<table style="width:100%">'
+                     +'<tr>'
+                     +'<td>'
+                     +'<a href="#" onclick="getmap(this.id,i)">'
+                     +'</a>'
+                     +'<i type="button" class="fa fa-1x fa-plus-square-o" class="loubtn" id="addlou" onclick="addtip(this.id)">'
+                     +'</i>'
+                     +'</td>'
+                     +'<td>'
+                     +'<a href="#"><i class="fa fa-lg fa-check-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="view_com_info()">'
+                     +'</i>'+'</a>'
+                     +'</td>'
+                     +'<td>'
+                     +'<a href="#"><i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="change_com_info()">'
+                     +'</i>'+'</a>'
+                     +'</td>'
+                     +'<td>'
+                     +'<a href="#">'+'<i class="fa fa-lg fa-times-rectangle-o" onclick="deletecom()">'
+                     + '</i>'
+                     +'</a>'
+                     +'</a>'
+                     +'</td>'
+                     +'</tr>'
+                     +'</table>';
+                 /*新加上的为每个社区上的div产生一个id，然后根据id来添加html*/
+                 $("#"+"gscom"+idNum).append(html);
+                 $("#"+"gscom"+idNum).children().eq(i).children().children().children().children(":first").attr("id","gscom"+idNum+i);
+                 $("#"+"gscom"+idNum+i).html(state.menu[i]);
+                 console.log(state.menu[i]);
+            }
+            var str = state.centerPoint;
+            var strs=[]
+            strs=str.split(",")
+            var a = strs[0];
+            var b = strs[1];
+            var center = new BMap.Point(a,b);
+            map.centerAndZoom(center,14);
+            map.enableScrollWheelZoom();
+            add_polygon();
+        }}
+    );
+}
+function send_xhcom(a,idNum){
+    map.clearOverlays();
+    var newpoints=[];
+    var comy=a;
+    var name=$("#"+comy).html();
+    var b='menu'
+    $.ajax({
+        type:"post",
+        url:"http://10.1.17.28:8090/safecity/selectPolygon",
+        data:
+            {
+                name:name,
+                action:b
+            },
+        dataType:"json",
+        success:function(state){
+            for(i=0;i<state.points.length;i++) {
+                var a = new Object();
+                a.lat = state.points[i].lat;
+                a.lng = state.points[i].lng;
+                points.push(a);
             }
 
+            $("#"+"xhcom"+idNum).get(0).innerHTML = "";
+            for(var i=0;i<state.menu.length;i++){
+                var html=
+                    '<table style="width:100%">'
+                    +'<tr>'
+                    +'<td>'
+                    +'<a href="#" onclick="getmap(this.id,i)">'
+                    +'</a>'
+                    +'<i type="button" class="fa fa-1x fa-plus-square-o" class="loubtn" id="addlou" onclick="addtip(this.id)">'
+                    +'</i>'
+                    +'</td>'
+                    +'<td>'
+                    +'<a href="#"><i class="fa fa-lg fa-check-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="view_com_info()">'
+                    +'</i>'+'</a>'
+                    +'</td>'
+                    +'<td>'
+                    +'<a href="#"><i class="fa fa-lg fa-pencil-square-o" data-toggle="modal" data-target="#viewcomModal" class="mycom" onclick="change_com_info()">'
+                    +'</i>'+'</a>'
+                    +'</td>'
+                    +'<td>'
+                    +'<a href="#">'+'<i class="fa fa-lg fa-times-rectangle-o" onclick="deletecom()">'
+                    + '</i>'
+                    +'</a>'
+                    +'</a>'
+                    +'</td>'
+                    +'</tr>'
+                    +'</table>';
+                /*新加上的为每个社区上的div产生一个id，然后根据id来添加html*/
+                $("#"+"xhcom"+idNum).append(html);
+                $("#"+"xhcom"+idNum).children().eq(i).children().children().children().children(":first").attr("id","xhcom"+idNum+i);
+                $("#"+"xhcom"+idNum+i).html(state.menu[i]);
+                console.log(state.menu[i]);
+            }
             var str = state.centerPoint;
             var strs=[]
             strs=str.split(",")
@@ -840,8 +719,8 @@ function send_sccom(a){
                 points.push(a);
             }
             console.log(points)
-            var html= '<div id="shangchengqucollapseplo" class="panel-collapse collapse" style="width:100%">'
-                +'<div class="panel-body" id="body">'
+            var html= '<div id="shangchengqucollapsepol" class="panel-collapse collapse" style="width:100%">'
+                +'<div class="panel-body">'
                 +'<table style="width:100%">'
                 +'<tr>'
                 +'<td><a href="#" class="comname" onclick="getmap()"></a></td>'
@@ -906,8 +785,8 @@ function send_xccom(a){
                 a.lng = state.points[i].lng;
                 points.push(a);
             }
-            var html= '<div id="xiachengqucollapseplo" class="panel-collapse collapse" style="width:100%">'
-                +'<div class="panel-body" id="body">'
+            var html= '<div id="xiachengqucollapsepol" class="panel-collapse collapse" style="width:100%">'
+                +'<div class="panel-body">'
                 +'<table style="width:100%">'
                 +'<tr>'
                 +'<td><a href="#" class="comname" onclick="getmap()"></a></td>'
@@ -974,8 +853,8 @@ function send_bjcom(a){
                 points.push(a);
             }
             console.log(points)
-            var html= '<div id="binjiangqucollapseplo" class="panel-collapse collapse" style="width:100%">'
-                +'<div class="panel-body" id="body">'
+            var html= '<div id="binjiangqucollapsepol" class="panel-collapse collapse" style="width:100%">'
+                +'<div class="panel-body">'
                 +'<table style="width:100%">'
                 +'<tr>'
                 +'<td><a href="#" class="comname" onclick="getmap()"></a></td>'
@@ -1043,8 +922,8 @@ function send_yhcom(a){
                 points.push(a);
             }
 
-            var html= '<div id="yuhangqucollapseplo" class="panel-collapse collapse" style="width:100%">'
-                +'<div class="panel-body" id="body">'
+            var html= '<div id="yuhangqucollapsepol" class="panel-collapse collapse" style="width:100%">'
+                +'<div class="panel-body">'
                 +'<table style="width:100%">'
                 +'<tr>'
                 +'<td><a href="#" class="comname" onclick="getmap()"></a></td>'
@@ -1109,8 +988,8 @@ function send_xscom(a){
                 points.push(a);
             }
             console.log(points)
-            var html= '<div id="xiaoshanqucollapseplo" class="panel-collapse collapse" style="width:100%">'
-                +'<div class="panel-body" id="body">'
+            var html= '<div id="xiaoshanqucollapsepol" class="panel-collapse collapse" style="width:100%">'
+                +'<div class="panel-body">'
                 +'<table style="width:100%">'
                 +'<tr>'
                 +'<td><a href="#" class="comname" onclick="getmap()"></a></td>'
@@ -1154,10 +1033,128 @@ function send_xscom(a){
 
 
 
+//点击社区级别得到社区级别的图形信息及包含的楼宇信息
+/*idNum是上一个的i*/
+function getmap(a,idNum,didNum) {
+    //a为当前点击的id
+    map.clearOverlays();
+    var sation=a;
+    var name=$("#"+sation).html();   //获取楼宇名称
+    var b='menu'
+    $.ajax({
+        type:"post",
+        url:"http://10.1.17.28:8090/safecity/selectPolygon",
+        data:
+            {
+                name:name,   //当前社区的名称
+                action:b
+            },
+        dataType:"json",
+
+        success:function(state){
+            for(i=0;i<state.points.length;i++) {
+                var point = new Object();
+                point.lat = state.points[i].lat;
+                point.lng = state.points[i].lng;
+                points.push(point);
+            }
+            console.log(points);
+
+            $("#"+"jgsta"+didNum+idNum).get(0).innerHTML = "";
+            //产生派出所下的社区列表
+            for(var i=0;i<state.menu.length;i++){
+
+                var html=
+                    //楼宇显示
+                    '<table style="width:100%">'
+                    +'<tr>'
+                    +'<td>'
+                    +'<a  data-toggle="collapse" data-parent="#jgsta'+didNum+idNum+'"  href="#collapsejgsta'+didNum+idNum+i+'"  onclick="lou_map(this.id)">'
+                    +'</a>'
+                    +'</td>'
+                    +'<td>'
+                    +'<a href="#"><i class="fa fa-lg fa-check-square-o" class="mysta" onclick="checkEquipment()">'
+                    +'</i>'
+                    +'</a>'
+                    +'</td>'
+                    +'<td>'
+                    +'<a href="#"><i class="fa fa-lg fa-pencil-square-o" class="mysta" onclick="change_pol_info()">'
+                    +'</i>'+'</a>'
+                    +'</td>'
+                    +'<td>'
+                    +'<a href="#"><i class="fa fa-lg fa-times-rectangle-o" onclick="deleteEquipment()">'
+                    +'</i>'
+                    +'</a>'
+                    +'</a>'
+                    +'</td>'
+                    +'</tr>'
+                    +'</table>'
+
+                /*新加上的为每个社区上的div产生一个id，然后根据id来添加html*/
+                $("#"+"jgsta"+didNum+idNum).append(html);
+                $("#"+"jgsta"+didNum+idNum).children().eq(i).children().children().children().children(":first").attr("id","jgsta"+didNum+idNum+i);
+                $("#"+"jgsta"+didNum+idNum+i).html(state.menu[i]);
+            }
+            //获取派出所级别的中心点并绘制派出所的图形
+            var str = state.centerPoint;
+            var strs=[]
+            strs=str.split(",")
+            var a = strs[0];
+            var b = strs[1];
+            var center = new BMap.Point(a,b);
+            map.centerAndZoom(center,16);
+            map.enableScrollWheelZoom();
+            add_polygon();    //添加社区级别的图形
+        }}
+    );
+}
+
+//我感觉是数据库的问题
+function lou_map(a){
+    console.log(a);
+    map.clearOverlays();
+    var sation=a;
+    var name=$("#"+sation).html();   //获取楼宇名称
+    var b='menu'
+    console.log(name);
+    $.ajax({
+        type:"post",
+        url:"http://10.1.17.28:8090/safecity/selectPolygon",
+        data:
+            {
+                name:name,   //当前社区的名称
+                action:b
+            },
+        dataType:"json",
+        success:function(state){
+            for(i=0;i<state.points.length;i++) {
+                var point = new Object();
+                point.lat = state.points[i].lat;
+                point.lng = state.points[i].lng;
+                points.push(point);
+            }
+
+            var str = state.centerPoint;
+            var strs=[]
+            strs=str.split(",")
+            var a = strs[0];
+            var b = strs[1];
+            var center = new BMap.Point(a,b);
+            map.centerAndZoom(center,18);
+            map.enableScrollWheelZoom();
+            add_polygon();     //添加社区级别的图形
+            console.log("print sucess")
+        }}
+    );
+}
+
+
+
 /*派出所区域信息增加提交*/
 function polInfomation() {
+
     var name=$(".pol_place").val();
-    var leval=$(".pol_leval").val();
+    var level=$(".pol_leval").val();
     var tel=$(".pol_tel").val();
     var email=$(".pol_email").val();
     var gis=$(".pol_coord").val();
@@ -1177,7 +1174,7 @@ function polInfomation() {
          url:"http://10.1.17.28:8090/safecity/addPolygon",
          data: {
              name:name,
-             level:leval,
+             level:level,
              centerPoint:gis,
              tel:tel,
              person:deultp,
@@ -1188,25 +1185,26 @@ function polInfomation() {
          dataType:"json",
          success:function(state){
              points = [];
-
              //成功提交，绘制的图形消失，模态框消失
-             overlay.hide();
              $("#pol_Modal").hide();
+             overlay.hide();
+
          }
      });
 }
-/*社区区域信息增加提交*/
+/*新增社区区域信息增加提交*/
 function comsubmit() {
 
     var name=$(".com_place").val();
+    var belong=$(".com_police").val();
+    var polygon=$(".com_region").val();
+
     var leval=$(".com_leval").val();
     var gis=$(".com_coord").val();
     var deultp=$(".com_person").val();
     var tel=$(".com_tel").val();
     var email=$(".com_email").val();
-    var belong=$(".com_police").val();
-    var street=$(".com_street").val();
-    console.log(leval);
+
     for(var i=0;i<points.length;i++)
     {
         var obj=new Object();
@@ -1214,20 +1212,21 @@ function comsubmit() {
         obj.lat=points[i].lat;
         coordinate.push(obj);
     }
-    console.log(coordinate)
     var polygon_json = JSON.stringify(coordinate);
     $.ajax({
         type:"post",
         url:"http://10.1.17.28:8090/safecity/addPolygon",
         data: {
             name:name,
+            street_name:belong,
+            region_name:polygon,
+
             level:leval,
             centerPoint:gis,
             person:deultp,
             tel:tel,
             email:email,
-            region_name:street,
-            street_name:belong,
+
             point:polygon_json
         },
         dataType:"json",
@@ -1236,85 +1235,150 @@ function comsubmit() {
         }
     });
 }
+/*楼宇信息提交按钮*/
+function stasubmit(){
+    var name=$(".sta_place").val();  //楼宇名称
+
+    var level=$(".sta_leval").val();
+    var tel=$(".sta_tel").val();
+    var email=$(".sta_email").val();
+    var gis=$(".sta_coord").val();
+    var deultp=$(".sta_person").val();
+    var com=$(".sta_com").val();        //所属小区
+    var belong=$(".sta_police").val(); //所属派出所
+    var region=$(".sta_region").val(); //所属大区
+
+    for(var i=0;i<points.length;i++)
+    {
+        var obj=new Object();
+        obj.lng=points[i].lng;
+        obj.lat=points[i].lat;
+        coordinate.push(obj);
+    }
+
+    var polygon_json = JSON.stringify(coordinate);
+    $.ajax({
+        type:"post",
+        url:"http://10.1.17.28:8090/safecity/addPolygon",
+        data: {
+            name:name,
+            level:level,
+            centerPoint:gis,
+            tel:tel,
+            email:email,
+            person:deultp,
+            resident_name:com,   //s所属小区
+            street_name:belong,  //所属派出所
+            region_name:region, //所属大区
+            point:polygon_json
+        },
+        dataType:"json",
+        success:function(state){
+            points = [];
+            //成功提交，绘制的图形消失，模态框消失
+            $("#sta_Modal").hide();
+            overlay.hide();
+        }
+    });
+}
+
+
+/* 新增设备的详细信息*/
+function submitEquipment() {
+
+    var name=$(".equip_name").val(); 
+    var type=$("#equip_type").val();  
+    var person=$("#equip_person").val();  //负责人
+    var tel=$("#equip_tel").val();
+    var email=$("#equip_email").val();
+    var lat=$(".equip_lat").val();
+    var lng=$(".equip_lng").val();
+    var region=$("#equip_region").val();  //行政区域，如“江干区
+    var street=$("#equip_street").val();  //派出所
+    var resident=$("#equip_resident").val();  //小区
+    var cell=$("#equip_cell").val();     //网格
+
+    $.ajax({
+         type:"post",
+         url:"http://10.1.17.28:8090/safecity/addEquipment",
+         data: {     //提交给服务器
+             "name":name,
+             "type":type,
+             "person":person,
+             "tel":tel,
+             "email":email,
+             "lat":lat,
+             "lng":lng,
+             "region":region,
+             "street":street,
+             "resident":resident,
+             "cell":cell
+         }, 
+         dataType:"json",
+         success:function(state){
+             point = '';
+            //  alert("aaaaaaa"); 
+             //成功提交，绘制的点消失+模态框消失
+             $("#com_Modal").hide();
+            //  overlay.hide();
+             map.removeOverlay(marker);
+         }
+    });
+}
+
 /*查看*/
-/*派出所信息查看*/
-function view_pol_info() {
-    $("#polchangebtn").css("display","none");
-    $("#polcellPhonespandiv").css("display","block");
-    $("#polcellPhonediv").css("display","none");
-    $("#polspandiv").css("display","block");
-    $("#polinputdiv").css("display","none")
-
-
-    //此处要判断派出所名称，然后给查看的表单赋值
-    var  name=$(".pol_place_info").html();
-    $(".pol_police_info").html($("#addpol").prev().html());
-
+/*设备信息查看*/
+function checkEquipment(a) {
+    $("#checkBtn").css("display","none");   //重置和提交按钮 隐藏
+    $("#ell-nocheck-div").css("display","block");  //联系电话（只读）  span形式
+    $("#cell-check-div").css("display","none");     //联系电话（可修改）input形式
+    $("#equip_person1").css("display","block");  
+    $("#equip_person1Modify").css("display","none");
+    var poly=a;
+    var name=$("#"+poly).parent().prev().children().html();
+    
     var action='detail'
     $.ajax({
         type:"post",
-      /*  url:"http://10.1.17.28:8090/safecity/selectPolygon",*/
-        url:"http://10.1.17.28:8090/safecity/selectPolygon",
+        url:"http://10.1.17.28:8090/safecity/examineEquipment",
         data: {
             name:name,
             action:action
         },
         dataType:"json",
         success:function(data){
-            $("#pol_level_info").html(data.level);
-            $("#pol_coord_info").html(data.centerPoint);
-            $("#pol_person_info").html(data.person);
-            $("#pol_cell_info").html(data.tel);
+            $("#equip_name1").html(data.name);
+            $("#equip_type1").html(data.type);
+            $("#equip_person1").html(data.person);
+            $("#equip_email1").html(data.email);
+            $(".equip_lat1").html(data.lat);
+            $(".equip_lng1").html(data.lng);
+            $("#equip_tel1").html(data.tel);
+            $("#equip_region1").html(data.region);
+            $("#equip_street1").html(data.street);
+            $("#equip_resident1").html(data.resident);
+            $("#equip_cell1").html(data.cell);
         }
     });
-}
-/*社区信息查看*/
-function view_com_info() {
-    $("#changebtn").css("display","none");
-
-    $("#cellPhonespandiv").css("display","block");
-    $("#cellPhonediv").css("display","none");
-
-    $("#comspandiv").css("display","block");
-    $("#cominputdiv").css("display","none")
-
-    //这里要告诉后台社区上两层的字段，既是var polname daquname
-    var  name=$("#com_place").val();
-
-    $.ajax({
-        type:"post",
-        url:"http://10.1.17.28:8090/safecity/personInformation",
-        data: {
-         name:name
-        },
-        dataType:"json",
-        success:function(data){
-            $("#com_place_info").html(data.Name);
-            $("#com_leval_info").html(data.Leval);
-
-            $("#com_coord_info").html(data.Gis);
-            $("#com_person_info").html(data.DeultP);
-            $("#com_police_info").html(data.Belong);
-        }
-    });
-
+    $("#viewpolModal").show().animate({"right":"90","width":"100%"},100);
 }
 
 /*修改*/
-/*改变社区级别信息处理*/
-function change_com_info(){
-    $("#changebtn").css("display","block")
-    $("#comspandiv").css("display","none");
-    $("#cominputdiv").css("display","block");
-    $("#cellPhonespandiv").css("display","none");
-    $("#cellPhonediv").css("display","block");
+/*设备信息处理*/
+function change_pol_info(a){
+    $("#checkBtn").css("display","block");   //重置和提交按钮 隐藏
+    $("#cell-nocheck-div").css("display","none");  //联系电话（只读）  span形式
+    $("#cell-check-div").css("display","block");     //联系电话（可修改）input形式
+    $("#equip_person1").css("display","none");  
+    $("#equip_person1Modify").css("display","block");
 
-    var name=$("#com_place");
-    var person=$("#com_person_input").val();
-    var tel=$("#com_cell_input").val();
+    // var name=$("#pol_place");
+    var person=$("#equip_person1Check").val();
+    var tel=$("#equip_tel1Check").val();
+
     $.ajax({
         type:"post",
-        url:"http://10.1.17.28:8090/safecity/personInformation",
+        url:"http://10.1.17.28:8090/safecity/attrEquipment",
         data: {
             name:name,
             person:person,
@@ -1322,75 +1386,30 @@ function change_com_info(){
         },
         dataType:"json",
         success:function(data){
-            $("#com_place_info").html(data.Name);
-            $("#com_leval_info").html(data.Leval);
-            $("#com_cell_input").value(data.cell)
-            $("#com_coord_info").html(data.Gis);
-            $("#com_person_info").value(data.DeultP);
-            $("#com_police_info").html(data.Belong);
-        }
-    });
-}
-function com_reset(){
-    $("#com_person_input").val("");
-    $("#com_cell_input").val("");
-}
-function com_submit() {
-    var name=$("#com_place");
-    $.ajax({
-        type:"post",
-        url:"http://10.1.17.28:8090/safecity/personInformation",
-        data: {
-            name:name,
-            action:1
-        },
-        dataType:"json",
-        success:function(data){
-           alert("修改成功");
+            $("#equip_name1").html(data.name);
+            $("#equip_type1").html(data.type);
+            $(".equip_lat1").html(data.lat);
+            $(".equip_lng1").html(data.lng);
+            $("#equip_person1Check").html(data.person);  //可编辑的、input
+            $("#equip_tel1Check").val()=data.tel;//可编辑的、input
+            $("#equip_email1").html(data.email);
+            $("#equip_region1").html(data.region);
+            $("#equip_street1").html(data.street);
+            $("#equip_resident1").html(data.resident);
+            $("#equip_cell1").html(data.cell);
         }
     });
 }
 
-/*
-派出所级别信息修改处理*/
-function change_pol_info(){
-    $("#polchangebtn").css("display","block")
-    $("#polspandiv").css("display","none");
-    $("#polinputdiv").css("display","block");
-    $("#polcellPhonespandiv").css("display","none");
-    $("#polcellPhonediv").css("display","block");
-
-    var name=$("#pol_place");
-    var person=$("#pol_person_input").val();
-    var tel=$("#pol_cell_input").val();
-    $.ajax({
-        type:"post",
-        url:"http://10.1.17.28:8090/safecity/personInformation",
-        data: {
-            name:name,
-            person:person,
-            tel:tel,
-        },
-        dataType:"json",
-        success:function(data){
-            $("#pol_place_info").html(data.Name);
-            $("#pol_leval_info").html(data.Leval);
-            $("#pol_cell_input").value(data.cell)
-            $("#pol_coord_info").html(data.Gis);
-            $("#pol_person_info").value(data.DeultP);
-            $("#pol_police_info").html(data.Belong);
-        }
-    });
-}
 function pol_reset(){
-    $("#pol_person_input").val("");
-    $("#pol_cell_input").val("");
+    $("#equip_person1Check").val("");
+    $("#equip_tel1Check").val("");
 }
 function pol_submit() {
     var name=$("#pol_place");
     $.ajax({
         type:"post",
-        url:"http://10.1.17.28:8090/safecity/personInformation",
+        url:"http://10.1.17.28:8090/safecity/attrEquipment",
         data: {
             name:name,
             action:1
@@ -1401,14 +1420,13 @@ function pol_submit() {
         }
     });
 }
-/*
- 删除*/
-function delete_pol(){
-    
-}
-function deletecom() {
 
+function deleteEquipment(){
+    $(".ibox-header").html("删除")
+    $("p#my_check").html("确定删除该设备？删除后不可恢复");
+    $(".no-delete").attr("data-target","");
+    $(".ibox-header i").attr("class","fa fa-lg fa-question-circle")
+    $(".myli1 div").attr("onclick","ibox_hide()");
+    $(".ibox").show();
 }
-function getmap() {
-    
-}
+
